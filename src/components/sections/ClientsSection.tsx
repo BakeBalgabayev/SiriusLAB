@@ -60,7 +60,7 @@ const CLIENTS = [
   { src: "/icons/1-2-6.svg",           alt: "PWR Laptop",            width: 60,  height: 26 },
   { src: "/icons/1-2-7.svg",           alt: "MH Marine Health",      width: 55,  height: 26 },
   { src: "/icons/1-2-8.svg",           alt: "GROHE",                 width: 75,  height: 30 },
-] as const;
+];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
