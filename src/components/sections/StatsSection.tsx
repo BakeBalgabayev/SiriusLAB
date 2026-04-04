@@ -22,10 +22,14 @@ const Container = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   gap: 32px;
+  background: rgba(145, 49, 174, 0.1);
+  border-radius: 20px;
+  padding: 40px 48px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: column;
     gap: 40px;
+    padding: 32px 24px;
   }
 `;
 

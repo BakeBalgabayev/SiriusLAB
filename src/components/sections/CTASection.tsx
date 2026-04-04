@@ -129,7 +129,7 @@ const ButtonPrimary = styled.a`
   white-space: nowrap;
 
   &:hover {
-    background: rgba(165, 69, 194, 1);
+    background: #4C6FD4;
   }
 `;
 
@@ -152,8 +152,11 @@ const ButtonOutline = styled.a`
   cursor: pointer;
   white-space: nowrap;
 
+  transition: background 0.2s, border-color 0.2s;
+
   &:hover {
-    border-color: rgba(255, 255, 255, 0.4);
+    background: #4C6FD4;
+    border-color: #4C6FD4;
   }
 `;
 

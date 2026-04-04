@@ -111,6 +111,7 @@ const Column = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     width: 100%;
     padding-left: 0;
+    gap: 0;
   }
 `;
 
@@ -212,6 +213,8 @@ const BottomBar = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    margin: 12px -16px 0;
+    padding: 20px 16px;
   }
 `;
 

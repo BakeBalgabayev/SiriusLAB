@@ -11,7 +11,7 @@ const Section = styled.section`
   overflow: hidden;
   display: flex;
   align-items: flex-start;
-  padding-top: 104px;
+  padding-top: 120px;
   padding-bottom: 160px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -188,7 +188,7 @@ const CTAButton = styled(Link)`
   transition: background 0.2s, transform 0.2s;
 
   &:hover {
-    background: #7a2993;
+    background: #4C6FD4;
     transform: translateY(-1px);
   }
 

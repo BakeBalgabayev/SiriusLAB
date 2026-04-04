@@ -102,8 +102,7 @@ const StatsCard = styled.div`
   border-radius: 20px;
   padding: 32px 40px;
   display: grid;
-  grid-template-columns: auto auto;
-  justify-content: space-between;
+  grid-template-columns: 1fr 1fr;
   gap: 32px 0;
   margin-bottom: 40px;
 
@@ -111,6 +110,7 @@ const StatsCard = styled.div`
     grid-template-columns: 1fr;
     padding: 24px;
     gap: 24px;
+    border: none;
   }
 `;
 
@@ -179,7 +179,7 @@ const CTAButton = styled(Link)`
   transition: background 0.2s, transform 0.2s;
 
   &:hover {
-    background: #7a2993;
+    background: #4C6FD4;
     transform: translateY(-1px);
   }
 

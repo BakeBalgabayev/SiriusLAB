@@ -31,6 +31,7 @@ const Card = styled.div`
     min-height: auto;
     padding: 24px;
     gap: 32px;
+    border: none;
   }
 `;
 

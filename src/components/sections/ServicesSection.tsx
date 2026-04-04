@@ -88,10 +88,18 @@ const Grid = styled.div`
 const Card = styled.div`
   background: rgba(14, 10, 21, 1);
   border-radius: 16px;
+  border: 1px solid transparent;
   padding: 28px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  transition: background 0.2s, border-color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(30, 10, 48, 1);
+    border-color: rgba(145, 49, 174, 0.5);
+  }
 `;
 
 const CardIcon = styled.div`
@@ -161,7 +169,7 @@ const CTAButton = styled(Link)`
   transition: background 0.2s, transform 0.2s;
 
   &:hover {
-    background: #7a2993;
+    background: #4C6FD4;
     transform: translateY(-1px);
   }
 
