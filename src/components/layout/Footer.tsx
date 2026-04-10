@@ -43,6 +43,7 @@ const Brand = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 24px;
 `;
 
 const LogoBlock = styled.div`
