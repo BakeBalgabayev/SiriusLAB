@@ -249,7 +249,7 @@ export default function ServicesListSection() {
               <TopRow>
                 <IconWrap>
                   <Image
-                    src="/icons/tariffs_outlined.svg"
+                    src={service.icon}
                     alt=""
                     width={32}
                     height={32}

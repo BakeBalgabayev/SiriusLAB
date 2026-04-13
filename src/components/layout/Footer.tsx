@@ -349,7 +349,7 @@ export default function Footer() {
                 <li><ColLink href="/">Главная</ColLink></li>
                 <li><ColLink href="/services">Услуги</ColLink></li>
                 <li><ColLink href="/solutions">Решения</ColLink></li>
-                <li><ColLink href="/pricing">Тарифы</ColLink></li>
+                <li><ColLink href="/tariffs">Тарифы</ColLink></li>
               </ColLinks>
             </Column>
 
@@ -358,7 +358,6 @@ export default function Footer() {
               <ColTitle>Ресурсы</ColTitle>
               <ColLinks>
                 <li><ColLink href="/docs">Документы</ColLink></li>
-                <li><ColLink href="/knowledge">База знаний</ColLink></li>
                 <li><ColLink href="/contact">Контакты</ColLink></li>
               </ColLinks>
             </Column>

@@ -98,6 +98,21 @@ const BadgeIcon = styled.span`
   flex-shrink: 0;
 `;
 
+const DesktopImage = styled.div`
+  position: absolute;
+  right: 160px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  height: 300px;
+  pointer-events: none;
+  z-index: 1;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    display: none;
+  }
+`;
+
 const Buttons = styled.div`
   display: flex;
   align-items: center;
@@ -164,6 +179,15 @@ export default function CTASection() {
   return (
     <Section>
       <Card>
+        <DesktopImage>
+          <Image
+            src="/images/firstP_end.png"
+            alt=""
+            fill
+            style={{ objectFit: "contain", objectPosition: "center right" }}
+            unoptimized
+          />
+        </DesktopImage>
         <Title>Готовы автоматизировать<br />бизнес?</Title>
         <Badge>
           <Image src="/icons/whiteSuccess_colored.svg" alt="" width={20} height={20} />

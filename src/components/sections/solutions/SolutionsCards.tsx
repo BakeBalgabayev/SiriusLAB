@@ -31,10 +31,24 @@ const CardBase = styled.div`
   background: rgba(22, 14, 35, 1);
   border-radius: 20px;
   padding: 24px;
-  min-height: 320px;
+  min-height: 240px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    min-height: 200px;
+  }
 `;
 
-const ImageCard = styled(CardBase)``;
+const ImageCard = styled(CardBase)`
+  background-image: url('/images/thirdP_2.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    min-height: 180px;
+    background-size: contain;
+  }
+`;
 
 const InfoCard = styled(CardBase)`
   display: flex;

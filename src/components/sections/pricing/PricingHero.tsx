@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const Section = styled.section`
   padding: 0 24px;
-  margin-bottom: 130px;
+  margin-bottom: 110px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     padding: 0 16px;
@@ -29,7 +29,6 @@ const Container = styled.div`
   }
 `;
 
-/* Desktop col 1 — badge + title + description */
 const ContentCol = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,14 +43,13 @@ const ContentCol = styled.div`
   }
 `;
 
-/* Desktop col 2 — image */
 const ImageCol = styled.div`
   position: relative;
   background: radial-gradient(ellipse 80% 55% at 50% 58%, rgba(90, 15, 140, 0.85) 0%, rgba(70, 10, 110, 0.4) 45%, transparent 70%);
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     order: 2;
-    height: 320px;
+    height: 380px;
     margin: 32px 0;
     background: radial-gradient(ellipse 90% 55% at 50% 55%, rgba(90, 15, 140, 0.95) 0%, rgba(70, 10, 110, 0.5) 45%, transparent 70%);
   }
@@ -63,7 +61,7 @@ const HeroImage = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('/images/thirdP_1.png') no-repeat center center;
+  background: url('/images/tariffsP_1.png') no-repeat center center;
   background-size: 65%;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -101,14 +99,6 @@ const BadgeText = styled.span`
   color: rgba(145, 49, 174, 1);
 `;
 
-const MobileBr = styled.br`
-  display: none;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    display: block;
-  }
-`;
-
 const Title = styled.h1`
   font-family: ${({ theme }) => theme.fonts.sans};
   font-size: 44px;
@@ -116,6 +106,7 @@ const Title = styled.h1`
   line-height: 52px;
   color: rgba(255, 255, 255, 1);
   margin: 0;
+  margin-top: 94px;
 
   span {
     color: rgba(145, 49, 174, 1);
@@ -124,6 +115,7 @@ const Title = styled.h1`
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     font-size: 36px;
     line-height: 45px;
+    margin-top: 0;
   }
 `;
 
@@ -137,46 +129,30 @@ const Description = styled.p`
   max-width: 360px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    display: none;
-  }
-`;
-
-const MobileDescription = styled.p`
-  display: none;
-  font-family: ${({ theme }) => theme.fonts.inter};
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  color: rgba(255, 255, 255, 1);
-  margin: 0;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    display: block;
+    max-width: 100%;
   }
 `;
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function SolutionsHero() {
+export default function PricingHero() {
   return (
     <Section>
       <Container>
         <ContentCol>
           <Badge>
-            <BadgeText>Собственная разработка</BadgeText>
+            <BadgeText>Прозрачная стоимость</BadgeText>
           </Badge>
 
           <Title>
-            <span>Интеграция</span><MobileBr /> МойСклад<br />
-            и 1С Бухгалтерия
+            Прозрачные<br />
+            <span>тарифные пакеты</span>
           </Title>
 
           <Description>
-            Интеграционные решения, разработанные специально для рынка Казахстана
+            Выберите подходящий пакет внедрения
+            <br />или запросите индивидуальное предложение
           </Description>
-          <MobileDescription>
-            Настроим систему под ваш бизнес с бесплатным сопровождением: товарный учёт, обучение команды, интеграция с маркетплейсами
-          </MobileDescription>
         </ContentCol>
 
         <ImageCol>

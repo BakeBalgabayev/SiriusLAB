@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const Section = styled.section`
   padding: 0 24px;
-  margin-bottom: 130px;
+  margin-bottom: 110px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     padding: 0 16px;
@@ -29,7 +29,6 @@ const Container = styled.div`
   }
 `;
 
-/* Desktop col 1 — badge + title + description */
 const ContentCol = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,14 +43,13 @@ const ContentCol = styled.div`
   }
 `;
 
-/* Desktop col 2 — image */
 const ImageCol = styled.div`
   position: relative;
   background: radial-gradient(ellipse 80% 55% at 50% 58%, rgba(90, 15, 140, 0.85) 0%, rgba(70, 10, 110, 0.4) 45%, transparent 70%);
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     order: 2;
-    height: 320px;
+    height: 380px;
     margin: 32px 0;
     background: radial-gradient(ellipse 90% 55% at 50% 55%, rgba(90, 15, 140, 0.95) 0%, rgba(70, 10, 110, 0.5) 45%, transparent 70%);
   }
@@ -63,15 +61,15 @@ const HeroImage = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('/images/thirdP_1.png') no-repeat center center;
-  background-size: 65%;
+  background: url('/images/docsP_1.png') no-repeat 35% 55%;
+  background-size: 75%;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     top: 0;
     left: -16px;
     right: -16px;
     bottom: 0;
-    background-size: 85% auto;
+    background-size: 65% auto;
     background-position: center center;
   }
 `;
@@ -89,7 +87,6 @@ const Badge = styled.div`
     width: 100%;
     border-radius: 16px;
     padding: 12px 16px;
-    justify-content: flex-start;
   }
 `;
 
@@ -101,29 +98,19 @@ const BadgeText = styled.span`
   color: rgba(145, 49, 174, 1);
 `;
 
-const MobileBr = styled.br`
-  display: none;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    display: block;
-  }
-`;
-
 const Title = styled.h1`
   font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 44px;
+  font-size: 64px;
   font-weight: 700;
-  line-height: 52px;
-  color: rgba(255, 255, 255, 1);
+  line-height: 72px;
+  color: rgba(145, 49, 174, 1);
   margin: 0;
-
-  span {
-    color: rgba(145, 49, 174, 1);
-  }
+  margin-top: 94px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    font-size: 36px;
-    line-height: 45px;
+    font-size: 48px;
+    line-height: 56px;
+    margin-top: 0;
   }
 `;
 
@@ -134,49 +121,29 @@ const Description = styled.p`
   line-height: 24px;
   color: rgba(255, 255, 255, 1);
   margin: 0;
-  max-width: 360px;
+  max-width: 400px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    display: none;
-  }
-`;
-
-const MobileDescription = styled.p`
-  display: none;
-  font-family: ${({ theme }) => theme.fonts.inter};
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  color: rgba(255, 255, 255, 1);
-  margin: 0;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    display: block;
+    max-width: 100%;
   }
 `;
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function SolutionsHero() {
+export default function DocsHero() {
   return (
     <Section>
       <Container>
         <ContentCol>
           <Badge>
-            <BadgeText>Собственная разработка</BadgeText>
+            <BadgeText>Готовые шаблоны</BadgeText>
           </Badge>
 
-          <Title>
-            <span>Интеграция</span><MobileBr /> МойСклад<br />
-            и 1С Бухгалтерия
-          </Title>
+          <Title>Документы</Title>
 
           <Description>
-            Интеграционные решения, разработанные специально для рынка Казахстана
+            Шаблоны документов и юридическая информация
           </Description>
-          <MobileDescription>
-            Настроим систему под ваш бизнес с бесплатным сопровождением: товарный учёт, обучение команды, интеграция с маркетплейсами
-          </MobileDescription>
         </ContentCol>
 
         <ImageCol>

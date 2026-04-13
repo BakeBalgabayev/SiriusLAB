@@ -6,44 +6,96 @@ import styled from "styled-components";
 
 const Section = styled.section`
   padding: 0 24px;
-  height: 452px;
-  display: flex;
-  align-items: stretch;
   margin-bottom: 130px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     padding: 0 16px;
-    height: auto;
     margin-bottom: 60px;
+    overflow: hidden;
   }
 `;
 
 const Container = styled.div`
   max-width: ${({ theme }) => theme.container.maxWidth};
   margin: 0 auto;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 104px 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  height: 452px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    padding: 84px 0 48px;
-    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
   }
 `;
 
-const Top = styled.div`
-  display: contents;
-`;
-
-const MobilePlaceholder = styled.div`
-  display: none;
+/* Desktop col 1 row 1 — badge + title */
+const TopLeft = styled.div`
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 104px 0 100px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    display: block;
-    height: 366px;
-    margin-bottom: 32px;
+    order: 1;
+    padding: 84px 0 0;
+  }
+`;
+
+/* Desktop col 1 row 2 — stats */
+const BottomLeft = styled.div`
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+  padding-bottom: 48px;
+  display: flex;
+  gap: 80px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    order: 3;
+    align-self: stretch;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 48px;
+    padding-top: 0;
+  }
+`;
+
+/* Desktop col 2 rows 1-2 — image */
+const ImageCol = styled.div`
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  position: relative;
+  background: radial-gradient(ellipse 80% 55% at 50% 58%, rgba(90, 15, 140, 0.85) 0%, rgba(70, 10, 110, 0.4) 45%, transparent 70%);
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    order: 2;
+    height: 340px;
+    margin: 32px 0;
+    background: radial-gradient(ellipse 90% 55% at 50% 55%, rgba(90, 15, 140, 0.95) 0%, rgba(70, 10, 110, 0.5) 45%, transparent 70%);
+  }
+`;
+
+const HeroImage = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -40px;
+  bottom: 0;
+  background: url('/images/second_1.png') no-repeat 20% center;
+  background-size: 75%;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    top: 0;
+    left: -16px;
+    right: -16px;
+    bottom: 0;
+    background-size: 95% auto;
+    background-position: center 40%;
+    transform: rotate(20deg);
   }
 `;
 
@@ -57,10 +109,11 @@ const Badge = styled.div`
   width: fit-content;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    display: flex;
     width: 100%;
     border-radius: 16px;
-    background: rgba(178, 94, 237, 0.1);
-    border: 1px solid rgba(178, 94, 237, 0.2);
+    padding: 12px 16px;
+    align-items: flex-start;
   }
 `;
 
@@ -72,21 +125,13 @@ const BadgeText = styled.span`
   color: rgba(145, 49, 174, 1);
 `;
 
-const MobileBr = styled.br`
-  display: none;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    display: block;
-  }
-`;
-
 const Title = styled.h1`
   font-family: ${({ theme }) => theme.fonts.sans};
   font-size: 44px;
   font-weight: 700;
   line-height: 52px;
   color: rgba(255, 255, 255, 1);
-  margin: 0;
+  margin: 110px 0 0;
 
   span {
     color: rgba(145, 49, 174, 1);
@@ -95,17 +140,7 @@ const Title = styled.h1`
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     font-size: 40px;
     line-height: 48px;
-    margin-bottom: 32px;
-  }
-`;
-
-const Stats = styled.div`
-  display: flex;
-  gap: 80px;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    flex-direction: column;
-    gap: 24px;
+    margin-top: 32px;
   }
 `;
 
@@ -129,10 +164,10 @@ const StatLabel = styled.span`
   font-weight: 400;
   line-height: 20px;
   color: rgba(255, 255, 255, 1);
-  max-width: 200px;
+  max-width: 230px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    max-width: 218px;
+    max-width: 230px;
   }
 `;
 
@@ -142,17 +177,20 @@ export default function ServicesHero() {
   return (
     <Section>
       <Container>
-        <Top>
+        <TopLeft>
           <Badge>
-            <BadgeText>ТОП 3 партнер сервисов<MobileBr /> МойСклад, amoCRM, Битрикс24</BadgeText>
+            <BadgeText>ТОП 3 партнер сервисов МойСклад, amoCRM, Битрикс24</BadgeText>
           </Badge>
           <Title>
             Наши <span>услуги</span>
           </Title>
-        </Top>
+        </TopLeft>
 
-        <MobilePlaceholder />
-        <Stats>
+        <ImageCol>
+          <HeroImage />
+        </ImageCol>
+
+        <BottomLeft>
           <StatItem>
             <StatValue>200+</StatValue>
             <StatLabel>успешных проектов внедрения в различных сферах бизнеса</StatLabel>
@@ -161,7 +199,7 @@ export default function ServicesHero() {
             <StatValue>20+</StatValue>
             <StatLabel>индивидуальных проектов разработки под задачи клиентов</StatLabel>
           </StatItem>
-        </Stats>
+        </BottomLeft>
       </Container>
     </Section>
   );

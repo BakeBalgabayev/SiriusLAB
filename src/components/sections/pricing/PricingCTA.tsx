@@ -24,35 +24,34 @@ const Container = styled.div`
 const Card = styled.div`
   background: radial-gradient(ellipse 60% 120% at 100% 50%, rgba(145, 49, 174, 0.55) 0%, rgba(14, 10, 21, 1) 60%);
   border-radius: 20px;
-  padding: 24px;
+  padding: 40px 48px;
   display: flex;
   flex-direction: row;
-  height: 322px;
   justify-content: space-between;
-  align-items: stretch;
-  position: relative;
+  align-items: center;
   overflow: hidden;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: column;
-    height: auto;
+    padding: 28px 24px;
     gap: 24px;
+    align-items: flex-start;
   }
 `;
 
 const ContentCol = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
+  gap: 20px;
   z-index: 1;
+  flex: 1;
 `;
 
 const ImageCol = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  width: 320px;
+  justify-content: center;
+  width: 300px;
   flex-shrink: 0;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -64,13 +63,13 @@ const Title = styled.h2`
   font-family: ${({ theme }) => theme.fonts.sans};
   font-size: 42px;
   font-weight: 700;
-  line-height: 48px;
+  line-height: 52px;
   color: rgba(255, 255, 255, 1);
   margin: 0;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 28px;
+    line-height: 36px;
   }
 `;
 
@@ -85,8 +84,6 @@ const Badge = styled.div`
   width: fit-content;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(178, 94, 237, 0.2);
     width: 100%;
   }
 `;
@@ -97,10 +94,6 @@ const BadgeText = styled.span`
   font-weight: 400;
   line-height: 20px;
   color: rgba(178, 94, 237, 1);
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    color: rgba(145, 49, 174, 1);
-  }
 `;
 
 const CTAButton = styled(Link)`
@@ -119,7 +112,7 @@ const CTAButton = styled(Link)`
   transition: background 0.2s;
 
   &:hover {
-    background: #4C6FD4;
+    background: rgba(120, 35, 150, 1);
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -128,36 +121,27 @@ const CTAButton = styled(Link)`
   }
 `;
 
-const Top = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
-
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function SolutionsCTA() {
+export default function PricingCTA() {
   return (
     <Section>
       <Container>
         <Card>
           <ContentCol>
-            <Top>
-              <Title>Хотите внедрить<br />интеграцию?</Title>
-              <Badge>
-                <Image src="/icons/whiteSuccess_colored.svg" alt="" width={16} height={16} unoptimized />
-                <BadgeText>Оставьте заявку и мы расскажем подробнее о нашем решении</BadgeText>
-              </Badge>
-            </Top>
-
+            <Title>Нужен индивидуальный<br />расчёт?</Title>
+            <Badge>
+              <Image src="/icons/whiteSuccess_colored.svg" alt="" width={16} height={16} unoptimized />
+              <BadgeText>Оставьте заявку, перезвоним через 15 минут</BadgeText>
+            </Badge>
             <CTAButton href="/contact">
-              Запросить демо
+              Связаться с нами
               <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} unoptimized />
             </CTAButton>
           </ContentCol>
 
           <ImageCol>
-            <Image src="/images/firstP_end.png" alt="" width={280} height={280} unoptimized style={{ objectFit: 'contain', marginRight: '50px' }} />
+            <Image src="/images/firstP_end.png" alt="" width={260} height={260} unoptimized style={{ objectFit: 'contain' }} />
           </ImageCol>
         </Card>
       </Container>

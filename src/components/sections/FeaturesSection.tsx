@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import Image from "next/image";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -29,17 +30,20 @@ const Left = styled.div`
   position: relative;
   width: 100%;
   height: 500px;
+  overflow: visible;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     height: 300px;
   }
 `;
 
-const ImagePlaceholder = styled.div`
+const BgImage = styled.div`
   position: absolute;
-  inset: 0;
-  background: rgba(145, 49, 174, 0.08);
-  border-radius: 20px;
+  top: -40px;
+  left: -140px;
+  right: 20px;
+  bottom: 0;
+  pointer-events: none;
 `;
 
 const TitleBox = styled.div`
@@ -251,7 +255,15 @@ export default function FeaturesSection() {
     <Section>
       <Container>
         <Left>
-          <ImagePlaceholder />
+          <BgImage>
+            <Image
+              src="/images/firstP_ap.png"
+              alt=""
+              fill
+              style={{ objectFit: "contain", objectPosition: "top right" }}
+              unoptimized
+            />
+          </BgImage>
           <TitleBox>
             <Title>
               <TitleLineFirst style={{ marginTop: "16px" }}>Все</TitleLineFirst>

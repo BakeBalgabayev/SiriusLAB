@@ -267,9 +267,8 @@ const NAV_LINKS = [
   { href: "/", label: "Главная" },
   { href: "/services", label: "Услуги" },
   { href: "/solutions", label: "Решения" },
-  { href: "/pricing", label: "Тарифы" },
+  { href: "/tariffs", label: "Тарифы" },
   { href: "/docs", label: "Документы" },
-  { href: "/knowledge", label: "База знаний" },
   { href: "/contact", label: "Контакты" },
 ] as const;
 
