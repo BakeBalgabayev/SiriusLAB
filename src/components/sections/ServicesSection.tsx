@@ -7,8 +7,7 @@ import Link from "next/link";
 // ─── Styled Components ────────────────────────────────────────────────────────
 
 const Section = styled.section`
-  height: 566px;
-  padding: 24px;
+  padding: 24px 24px 80px;
   position: relative;
   overflow: hidden;
   background-color: rgba(0, 0, 0, 1);
@@ -94,11 +93,34 @@ const Card = styled.div`
   flex-direction: column;
   gap: 8px;
   transition: background 0.2s, border-color 0.2s;
-  cursor: pointer;
 
   &:hover {
     background: rgba(30, 10, 48, 1);
     border-color: rgba(145, 49, 174, 0.5);
+  }
+`;
+
+const CardCTA = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 0;
+  height: 48px;
+  flex-shrink: 0;
+  background: rgba(145, 49, 174, 0.1);
+  color: rgba(145, 49, 174, 1);
+  border: none;
+  font-family: ${({ theme }) => theme.fonts.inter};
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+
+  &:hover {
+    background: rgba(145, 49, 174, 0.2);
   }
 `;
 
@@ -131,6 +153,7 @@ const CardList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex: 1;
 `;
 
 const CardListItem = styled.li`
@@ -150,6 +173,7 @@ const CardListItem = styled.li`
     color: rgba(255, 255, 255, 1);
   }
 `;
+
 
 const CTAButton = styled(Link)`
   display: inline-flex;
@@ -185,27 +209,45 @@ const SERVICES = [
   {
     icon: "/images/moysklad.png",
     title: "МойСклад",
+    link: "https://www.moysklad.kz/register/?p=2020-2028",
+    cta: "Попробовать бесплатно",
     items: [
-      "Автоматизация складского учёта, продаж и финансов",
-      "Полное внедрение и настройка под ваш бизнес",
+      "Автоматизация складского учёта, интеграция с маркетплейсами",
+      "Обмен данными с 1С Бухгалтерия для Казахстана",
+      "Полное внедрение, запуск и сопровождение на старте проекта",
+      "Гарантийное обслуживание до 3 месяцев",
     ],
   },
   {
     icon: "/images/bitrix24.png",
     title: "Битрикс24",
+    link: "https://www.bitrix24.kz/create.php?p=12818240",
+    cta: "Попробовать бесплатно",
     items: [
-      "Внедрение корпоративного портала, CRM, управление задачами и проектами для командной работы.",
-      "Автоматизация отдела продаж с помощью Бизнес и смарт процессов",
+      "Внедрения автоматизированной CRM",
+      "Настройка гибкой воронки продаж",
+      "Чат-боты, ИИ агенты для отдела продаж",
+      "Автоматизация с помощью автоматизированных процессов",
+      "Контроль и исполнение Задач и Проектов",
+      "Полное обучение и сопровождение вашей команды",
+      "Интеграция с WhatsApp, Instagram, телефония",
     ],
   },
   {
     icon: "/images/amocrm.png",
     title: "amoCRM",
+    link: null,
+    cta: "Попробовать бесплатно",
     items: [
-      "Настройка воронок продаж, автоматизация процессов, интеграция с телефонией и мессенджерами",
+      "Настройка воронок продаж",
+      "Интеграция с телефонией и мессенджерами",
+      "Автоматизация периодических продаж",
+      "Аналитика продаж",
+      "Контроль продаж и целей",
+      "Полное обучение и сопровождение вашей команды",
     ],
   },
-] as const;
+];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -240,6 +282,13 @@ export default function ServicesSection() {
                   <CardListItem key={item}>{item}</CardListItem>
                 ))}
               </CardList>
+              <CardCTA
+                href={service.link ?? "#"}
+                target={service.link ? "_blank" : undefined}
+                rel={service.link ? "noopener noreferrer" : undefined}
+              >
+                {service.cta}
+              </CardCTA>
             </Card>
           ))}
         </Grid>

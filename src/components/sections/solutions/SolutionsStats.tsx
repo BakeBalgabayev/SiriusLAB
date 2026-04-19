@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import styled from "styled-components";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
@@ -68,11 +69,14 @@ const StatItem = styled.div`
 `;
 
 const IconSquare = styled.div`
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
   background: rgba(40, 18, 62, 1);
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StatContent = styled.div`
@@ -104,11 +108,11 @@ const StatLabel = styled.span`
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const STATS: { value: string; label: React.ReactNode }[] = [
-  { value: "95%", label: <>Исключение ручного<br />переноса данных</> },
-  { value: "99%", label: <>Снижение ошибок<br />человеческого фактора</> },
-  { value: "3 млн ₸", label: "Экономия в год для бизнеса" },
-  { value: "24/7", label: <>Автоматическая<br />синхронизация</> },
+const STATS: { value: string; label: React.ReactNode; icon: string }[] = [
+  { value: "95%",      label: <>Исключение ручного<br />переноса данных</>,          icon: "/icons/Frame 427321792.png" },
+  { value: "99%",      label: <>Снижение ошибок<br />человеческого фактора</>,      icon: "/icons/Frame 427321791.png" },
+  { value: "3 млн ₸", label: "Экономия в год для бизнеса",                          icon: "/icons/Frame 427321789.png" },
+  { value: "24/7",     label: <>Автоматическая<br />синхронизация</>,               icon: "/icons/Frame 427321790.png" },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -126,7 +130,9 @@ export default function SolutionsStats() {
         <StatsCard>
           {STATS.map((stat, i) => (
             <StatItem key={i}>
-              <IconSquare />
+              <IconSquare>
+                <Image src={stat.icon} alt="" width={40} height={40} unoptimized />
+              </IconSquare>
               <StatContent>
                 <StatValue>{stat.value}</StatValue>
                 <StatLabel>{stat.label}</StatLabel>

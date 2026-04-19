@@ -2,7 +2,8 @@
 
 import styled, { keyframes } from "styled-components";
 import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -486,6 +487,25 @@ const ModalButton = styled.button`
   }
 `;
 
+const PlanBadge = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(145, 49, 174, 0.12);
+  border: 1px solid rgba(145, 49, 174, 0.3);
+  font-family: ${({ theme }) => theme.fonts.inter};
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+
+  span {
+    color: rgba(145, 49, 174, 1);
+    font-weight: 600;
+  }
+`;
+
 const StatusMessage = styled.p<{ $error?: boolean }>`
   font-family: ${({ theme }) => theme.fonts.inter};
   font-size: 14px;
@@ -510,10 +530,60 @@ function InstagramIcon() {
 
 function WhatsappIcon() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M8.5 9.5c.5 1 1.5 3 3.5 4s3-1 3-1" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.726.45 3.35 1.236 4.754L2 22l5.373-1.21A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.946 7.946 0 01-4.054-1.11l-.29-.173-3.19.718.754-3.1-.19-.31A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8zm4.406-5.884c-.242-.121-1.432-.707-1.654-.787-.222-.08-.384-.121-.545.121-.161.242-.626.787-.767.949-.141.161-.282.181-.524.06-.242-.12-1.022-.376-1.946-1.2-.719-.641-1.204-1.433-1.346-1.675-.141-.242-.015-.373.106-.493.109-.108.242-.282.363-.423.12-.14.16-.241.242-.403.08-.161.04-.302-.02-.423-.061-.12-.546-1.316-.748-1.802-.197-.473-.397-.409-.546-.417l-.464-.008c-.161 0-.423.06-.645.302-.222.242-.847.828-.847 2.02s.867 2.343.988 2.505c.12.161 1.706 2.606 4.134 3.653.578.25 1.029.398 1.38.51.58.184 1.108.158 1.525.096.465-.07 1.432-.585 1.634-1.15.201-.565.201-1.05.141-1.15-.06-.1-.222-.161-.464-.282z"/>
     </svg>
+  );
+}
+
+// ─── City Combobox (free-text + filtered suggestions) ─────────────────────────
+
+
+function CityCombobox({ placeholder, options, value, onChange, error }: {
+  placeholder: string;
+  options: { value: string; label: string }[];
+  value: string;
+  onChange: (val: string) => void;
+  error?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const filtered = value
+    ? options.filter(o => o.label.toLowerCase().includes(value.toLowerCase()))
+    : options;
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  return (
+    <DropdownWrapper ref={ref}>
+      <Input
+        type="text"
+        placeholder={placeholder}
+        value={value}
+        $error={error}
+        onChange={e => { onChange(e.target.value); setOpen(true); }}
+        onFocus={() => setOpen(true)}
+        autoComplete="off"
+      />
+      {open && filtered.length > 0 && (
+        <DropdownList>
+          {filtered.map(opt => (
+            <DropdownItem key={opt.value} onMouseDown={() => { onChange(opt.label); setOpen(false); }}>
+              {opt.label}
+            </DropdownItem>
+          ))}
+        </DropdownList>
+      )}
+    </DropdownWrapper>
   );
 }
 
@@ -612,7 +682,10 @@ const SERVICES = [
   { value: "consultation", label: "Консультация" },
 ];
 
-export default function ContactSection() {
+function ContactSectionInner() {
+  const searchParams = useSearchParams();
+  const selectedPlan = searchParams.get("plan");
+
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [service, setService] = useState("");
@@ -642,14 +715,14 @@ export default function ContactSection() {
     setLoading(true);
     setStatus("idle");
 
-    const cityLabel = CITIES.find(c => c.value === city)?.label ?? city;
+    const cityLabel = city.trim();
     const serviceLabel = SERVICES.find(s => s.value === service)?.label ?? service;
 
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, city: cityLabel, service: serviceLabel }),
+        body: JSON.stringify({ name, phone, city: cityLabel, service: serviceLabel, plan: selectedPlan }),
       });
       const data = await res.json();
       if (data.ok) {
@@ -689,29 +762,29 @@ export default function ContactSection() {
                     <Image src="/icons/phone_icon.svg" alt="" width={18} height={18} unoptimized />
                   </InfoIconWrap>
                   <InfoTextWrap>
-                    <InfoLabel>телефон:</InfoLabel>
+                    <InfoLabel>Отдел продаж:</InfoLabel>
                     <InfoValue>+7 700 020 09 59</InfoValue>
                   </InfoTextWrap>
                 </InfoPill>
                 <InfoPill>
                   <InfoIconWrap>
-                    <Image src="/icons/clock_icon.svg" alt="" width={18} height={18} unoptimized />
+                    <Image src="/icons/phone_icon.svg" alt="" width={18} height={18} unoptimized />
                   </InfoIconWrap>
                   <InfoTextWrap>
-                    <InfoLabel>Время работы:</InfoLabel>
-                    <InfoValue>с 10:00 по 19:00</InfoValue>
+                    <InfoLabel>Тех. поддержка:</InfoLabel>
+                    <InfoValue>+7 700 020 09 55</InfoValue>
                   </InfoTextWrap>
                 </InfoPill>
               </InfoRow>
 
               <SocialRow>
-                <SocialBtn href="#" aria-label="Instagram">
+                <SocialBtn href="https://www.instagram.com/siriuslab.kz?igsh=enhlZW95ZWd6MWh1&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                   <InstagramIcon />
                 </SocialBtn>
-                <SocialBtn href="#" aria-label="WhatsApp">
+                <SocialBtn href="https://wa.me/77000200959" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                   <WhatsappIcon />
                 </SocialBtn>
-                <SocialBtn href="#" aria-label="Telegram">
+                <SocialBtn href="https://t.me/Siriuslab_bot" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
                   <Image src="/icons/tg.svg" alt="Telegram" width={26} height={26} unoptimized />
                 </SocialBtn>
               </SocialRow>
@@ -719,6 +792,11 @@ export default function ContactSection() {
           </LeftBottom>
 
           <RightCol>
+            {selectedPlan && (
+              <PlanBadge>
+                Выбранный тариф: <span>{selectedPlan}</span>
+              </PlanBadge>
+            )}
             <FieldGroup>
               <Label>Имя</Label>
               <Input
@@ -733,8 +811,8 @@ export default function ContactSection() {
 
             <FieldGroup>
               <Label>Город</Label>
-              <CustomDropdown
-                placeholder="Выберите город"
+              <CityCombobox
+                placeholder="Введите или выберите город"
                 options={CITIES}
                 value={city}
                 onChange={v => { setCity(v); if (errors.city) setErrors(p => ({ ...p, city: false })); }}
@@ -798,5 +876,13 @@ export default function ContactSection() {
         </Backdrop>
       )}
     </Section>
+  );
+}
+
+export default function ContactSection() {
+  return (
+    <Suspense fallback={null}>
+      <ContactSectionInner />
+    </Suspense>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styled from "styled-components";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
@@ -57,10 +58,14 @@ const InfoCard = styled(CardBase)`
 `;
 
 const IconSquare = styled.div`
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(145, 49, 174, 0.15);
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(40, 18, 62, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 `;
 
 const StatValue = styled.span`
@@ -113,7 +118,9 @@ export default function SolutionsCards() {
         <ImageCard />
 
         <InfoCard>
-          <IconSquare />
+          <IconSquare>
+            <Image src="/icons/Frame 427321793.png" alt="" width={40} height={40} unoptimized />
+          </IconSquare>
           <div>
             <StatValue>+60</StatValue>
             <StatLabel>клиентов успешно<br />пользуются интеграцией</StatLabel>
@@ -121,7 +128,9 @@ export default function SolutionsCards() {
         </InfoCard>
 
         <InfoCard>
-          <IconSquare />
+          <IconSquare>
+            <Image src="/icons/Frame 427321794.png" alt="" width={40} height={40} unoptimized />
+          </IconSquare>
           <CardText>
             Пока вы пользуетесь интеграцией мы оказываем постоянную
             <Badge>бесплатную</Badge>
