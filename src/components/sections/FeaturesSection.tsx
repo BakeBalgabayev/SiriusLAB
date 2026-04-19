@@ -2,6 +2,8 @@
 
 import styled from "styled-components";
 import Image from "next/image";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -220,37 +222,14 @@ function SettingsIcon() {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const FEATURES = [
-  {
-    icon: <LayersIcon />,
-    title: "Автоматизация складского учёта",
-    desc: "Приём, отгрузка, перемещение, списание — всё в одной системе",
-  },
-  {
-    icon: <GridIcon />,
-    title: "Интеграция с маркетплейсами",
-    desc: "Wildberries, Kaspi, Ozon — ведите учёт с одного окна",
-  },
-  {
-    icon: <BoltIcon />,
-    title: "Интеграция с 1С Казахстан",
-    desc: "Полная синхронизация справочников и документов между 1С и МойСклад",
-  },
-  {
-    icon: <GlobeIcon />,
-    title: "Интеграция с интернет-магазином",
-    desc: "Синхронизация остатков товара в реальном времени",
-  },
-  {
-    icon: <SettingsIcon />,
-    title: "Интеграционные решения",
-    desc: "Low-code и API интеграции с любым сервисом",
-  },
-] as const;
+const FEATURE_ICONS = [<LayersIcon key="0" />, <GridIcon key="1" />, <BoltIcon key="2" />, <GlobeIcon key="3" />, <SettingsIcon key="4" />];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function FeaturesSection() {
+  const { lang } = useLang();
+  const tr = t[lang].features;
+
   return (
     <Section>
       <Container>
@@ -266,19 +245,19 @@ export default function FeaturesSection() {
           </BgImage>
           <TitleBox>
             <Title>
-              <TitleLineFirst style={{ marginTop: "16px" }}>Все</TitleLineFirst>
+              <TitleLineFirst style={{ marginTop: "16px" }}>{tr.titleLine1}</TitleLineFirst>
               <TitleGroup>
-                <TitleLine style={{ borderRadius: "0 20px 0 0" }}><TitleAccent>возможности</TitleAccent></TitleLine>
-                <TitleLine>авторизации</TitleLine>
+                <TitleLine style={{ borderRadius: "0 20px 0 0" }}><TitleAccent>{tr.titleLine2}</TitleAccent></TitleLine>
+                <TitleLine>{tr.titleLine3}</TitleLine>
               </TitleGroup>
             </Title>
           </TitleBox>
         </Left>
 
         <Right>
-          {FEATURES.map((feature) => (
+          {tr.items.map((feature, i) => (
             <FeatureItem key={feature.title}>
-              <IconBox>{feature.icon}</IconBox>
+              <IconBox>{FEATURE_ICONS[i]}</IconBox>
               <FeatureText>
                 <FeatureTitle>{feature.title}</FeatureTitle>
                 <FeatureDesc>{feature.desc}</FeatureDesc>

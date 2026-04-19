@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import styled from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -79,23 +81,21 @@ const StatLabel = styled.span`
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const STATS = [
-  { icon: "/images/1.png", value: "200+", label: "Компаний работают с нами" },
-  { icon: "/images/2.png", value: "6+",   label: "Лет на рынке" },
-  { icon: "/images/3.png", value: "50+",  label: "Проектов внедрения" },
-  { icon: "/images/4.png", value: "4",    label: "Собственных решений для бизнеса" },
-] as const;
+const STAT_ICONS = ["/images/1.png", "/images/2.png", "/images/3.png", "/images/4.png"];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function StatsSection() {
+  const { lang } = useLang();
+  const tr = t[lang].stats;
+
   return (
     <Section>
       <Container>
-        {STATS.map((stat) => (
+        {tr.items.map((stat, i) => (
           <StatItem key={stat.label}>
             <IconBox>
-              <Image src={stat.icon} alt={stat.label} width={64} height={64} />
+              <Image src={STAT_ICONS[i]} alt={stat.label} width={64} height={64} />
             </IconBox>
             <StatText>
               <StatValue>{stat.value}</StatValue>

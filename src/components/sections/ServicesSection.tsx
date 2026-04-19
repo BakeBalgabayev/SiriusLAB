@@ -3,6 +3,8 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -205,96 +207,64 @@ const CTAButton = styled(Link)`
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const SERVICES = [
-  {
-    icon: "/images/moysklad.png",
-    title: "МойСклад",
-    link: "https://www.moysklad.kz/register/?p=2020-2028",
-    cta: "Попробовать бесплатно",
-    items: [
-      "Автоматизация складского учёта, интеграция с маркетплейсами",
-      "Обмен данными с 1С Бухгалтерия для Казахстана",
-      "Полное внедрение, запуск и сопровождение на старте проекта",
-      "Гарантийное обслуживание до 3 месяцев",
-    ],
-  },
-  {
-    icon: "/images/bitrix24.png",
-    title: "Битрикс24",
-    link: "https://www.bitrix24.kz/create.php?p=12818240",
-    cta: "Попробовать бесплатно",
-    items: [
-      "Внедрения автоматизированной CRM",
-      "Настройка гибкой воронки продаж",
-      "Чат-боты, ИИ агенты для отдела продаж",
-      "Автоматизация с помощью автоматизированных процессов",
-      "Контроль и исполнение Задач и Проектов",
-      "Полное обучение и сопровождение вашей команды",
-      "Интеграция с WhatsApp, Instagram, телефония",
-    ],
-  },
-  {
-    icon: "/images/amocrm.png",
-    title: "amoCRM",
-    link: null,
-    cta: "Попробовать бесплатно",
-    items: [
-      "Настройка воронок продаж",
-      "Интеграция с телефонией и мессенджерами",
-      "Автоматизация периодических продаж",
-      "Аналитика продаж",
-      "Контроль продаж и целей",
-      "Полное обучение и сопровождение вашей команды",
-    ],
-  },
+const SERVICE_ICONS = [
+  { icon: "/images/moysklad.png", link: "https://www.moysklad.kz/register/?p=2020-2028" },
+  { icon: "/images/bitrix24.png", link: "https://www.bitrix24.kz/create.php?p=12818240" },
+  { icon: "/images/amocrm.png",   link: null },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ServicesSection() {
+  const { lang } = useLang();
+  const tr = t[lang].services;
+
   return (
     <Section>
       <Container>
         <Title>
-          Наши <span>услуги</span>
+          {tr.title1}<span>{tr.titleAccent}</span>
         </Title>
         <Subtitle>
-          Внедряем ведущие бизнес-системы и помогаем автоматизировать процессы
+          {tr.subtitle}
         </Subtitle>
 
         <Grid>
-          {SERVICES.map((service) => (
-            <Card key={service.title}>
-              <CardIcon>
-                <Image
-                  src={service.icon}
-                  alt={service.title}
-                  width={64}
-                  height={64}
-                  quality={100}
-                  unoptimized
-                  style={{ objectFit: "contain", width: "100%", height: "100%" }}
-                />
-              </CardIcon>
-              <CardTitle>{service.title}</CardTitle>
-              <CardList>
-                {service.items.map((item) => (
-                  <CardListItem key={item}>{item}</CardListItem>
-                ))}
-              </CardList>
-              <CardCTA
-                href={service.link ?? "#"}
-                target={service.link ? "_blank" : undefined}
-                rel={service.link ? "noopener noreferrer" : undefined}
-              >
-                {service.cta}
-              </CardCTA>
-            </Card>
-          ))}
+          {tr.items.map((service, i) => {
+            const { icon, link } = SERVICE_ICONS[i];
+            return (
+              <Card key={service.title}>
+                <CardIcon>
+                  <Image
+                    src={icon}
+                    alt={service.title}
+                    width={64}
+                    height={64}
+                    quality={100}
+                    unoptimized
+                    style={{ objectFit: "contain", width: "100%", height: "100%" }}
+                  />
+                </CardIcon>
+                <CardTitle>{service.title}</CardTitle>
+                <CardList>
+                  {service.items.map((item) => (
+                    <CardListItem key={item}>{item}</CardListItem>
+                  ))}
+                </CardList>
+                <CardCTA
+                  href={link ?? "#"}
+                  target={link ? "_blank" : undefined}
+                  rel={link ? "noopener noreferrer" : undefined}
+                >
+                  {tr.tryFree}
+                </CardCTA>
+              </Card>
+            );
+          })}
         </Grid>
 
         <CTAButton href="/services">
-          Все услуги <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} unoptimized />
+          {tr.allServices} <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} unoptimized />
         </CTAButton>
       </Container>
     </Section>

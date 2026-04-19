@@ -3,6 +3,8 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -191,12 +193,7 @@ const CTAButton = styled(Link)`
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const STATS = [
-  { icon: "/icons/1-1.png", value: "на 95%", label: "исключает ручной перенос данных" },
-  { icon: "/icons/1-2.png", value: "50%",    label: "увеличение выручки у клиентов" },
-  { icon: "/icons/1-3.png", value: "на 99%", label: "уменьшает допущение ошибок человека" },
-  { icon: "/icons/1-4.png", value: "3 млн",  label: "тенге в год — экономия для бизнеса" },
-] as const;
+const STAT_ICONS = ["/icons/1-1.png", "/icons/1-2.png", "/icons/1-3.png", "/icons/1-4.png"];
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
@@ -211,28 +208,29 @@ function CheckIcon() {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function SolutionSection() {
+  const { lang } = useLang();
+  const tr = t[lang].solution;
+
   return (
     <Section>
       <Container>
         <Badge>
           <BadgeIcon><CheckIcon /></BadgeIcon>
-          <BadgeText>Наше решение</BadgeText>
+          <BadgeText>{tr.badge}</BadgeText>
         </Badge>
 
         <Header>
-          <Title>Интеграция МойСклад<br />и 1С Бухгалтерия</Title>
+          <Title>{tr.title.split("\n").map((line, i, arr) => i < arr.length - 1 ? <span key={i}>{line}<br /></span> : <span key={i}>{line}</span>)}</Title>
           <Description>
-            Поддерживается 1С Бухгалтерия версий 3.0. Двусторонняя<br />
-            синхронизация справочников и документов между МойСклад<br />
-            и 1С Бухгалтерия
+            {tr.description}
           </Description>
         </Header>
 
         <StatsCard>
-          {STATS.map((stat) => (
+          {tr.stats.map((stat, i) => (
             <StatItem key={stat.label}>
               <StatIcon>
-                {stat.icon && <Image src={stat.icon} alt="" width={56} height={56} unoptimized />}
+                <Image src={STAT_ICONS[i]} alt="" width={56} height={56} unoptimized />
               </StatIcon>
               <StatContent>
                 <StatValue>{stat.value}</StatValue>
@@ -243,7 +241,7 @@ export default function SolutionSection() {
         </StatsCard>
 
         <CTAButton href="/solutions">
-          Подробнее <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} unoptimized />
+          {tr.cta} <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} unoptimized />
         </CTAButton>
       </Container>
     </Section>

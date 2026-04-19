@@ -3,6 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -108,34 +110,35 @@ const StatLabel = styled.span`
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const STATS: { value: string; label: React.ReactNode; icon: string }[] = [
-  { value: "95%",      label: <>Исключение ручного<br />переноса данных</>,          icon: "/icons/Frame 427321792.png" },
-  { value: "99%",      label: <>Снижение ошибок<br />человеческого фактора</>,      icon: "/icons/Frame 427321791.png" },
-  { value: "3 млн ₸", label: "Экономия в год для бизнеса",                          icon: "/icons/Frame 427321789.png" },
-  { value: "24/7",     label: <>Автоматическая<br />синхронизация</>,               icon: "/icons/Frame 427321790.png" },
+const STAT_ICONS = [
+  "/icons/Frame 427321792.png",
+  "/icons/Frame 427321791.png",
+  "/icons/Frame 427321789.png",
+  "/icons/Frame 427321790.png",
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function SolutionsStats() {
+  const { lang } = useLang();
+  const tr = t[lang].solutions.stats;
+
   return (
     <Section>
       <Container>
         <Description>
-          Мы разработали уникальное интеграционное решение, которое позволяет автоматически
-          синхронизировать данные между МойСклад и 1С Бухгалтерия для Казахстана. Решение на 95%
-          исключает ручной перенос данных и на 99% снижает допущение ошибок при работе с документами
+          {tr.description}
         </Description>
 
         <StatsCard>
-          {STATS.map((stat, i) => (
+          {tr.items.map((stat, i) => (
             <StatItem key={i}>
               <IconSquare>
-                <Image src={stat.icon} alt="" width={40} height={40} unoptimized />
+                <Image src={STAT_ICONS[i]} alt="" width={40} height={40} unoptimized />
               </IconSquare>
               <StatContent>
                 <StatValue>{stat.value}</StatValue>
-                <StatLabel>{stat.label}</StatLabel>
+                <StatLabel>{stat.label.split("\n").map((line: string, j: number, arr: string[]) => j < arr.length - 1 ? <React.Fragment key={j}>{line}<br /></React.Fragment> : line)}</StatLabel>
               </StatContent>
             </StatItem>
           ))}

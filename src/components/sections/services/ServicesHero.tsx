@@ -1,6 +1,8 @@
 "use client";
 
 import styled from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -174,15 +176,18 @@ const StatLabel = styled.span`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ServicesHero() {
+  const { lang } = useLang();
+  const tr = t[lang].servicesPage.hero;
+
   return (
     <Section>
       <Container>
         <TopLeft>
           <Badge>
-            <BadgeText>ТОП 3 партнер сервисов МойСклад, amoCRM, Битрикс24</BadgeText>
+            <BadgeText>{tr.badge}</BadgeText>
           </Badge>
           <Title>
-            Наши <span>услуги</span>
+            {tr.title1}<span>{tr.titleAccent}</span>
           </Title>
         </TopLeft>
 
@@ -192,12 +197,12 @@ export default function ServicesHero() {
 
         <BottomLeft>
           <StatItem>
-            <StatValue>200+</StatValue>
-            <StatLabel>успешных проектов внедрения в различных сферах бизнеса</StatLabel>
+            <StatValue>{tr.stat1Value}</StatValue>
+            <StatLabel>{tr.stat1Label}</StatLabel>
           </StatItem>
           <StatItem>
-            <StatValue>20+</StatValue>
-            <StatLabel>индивидуальных проектов разработки под задачи клиентов</StatLabel>
+            <StatValue>{tr.stat2Value}</StatValue>
+            <StatLabel>{tr.stat2Label}</StatLabel>
           </StatItem>
         </BottomLeft>
       </Container>

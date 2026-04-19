@@ -1,6 +1,8 @@
 "use client";
 
 import styled from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -158,24 +160,26 @@ const MobileDescription = styled.p`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function SolutionsHero() {
+  const { lang } = useLang();
+  const tr = t[lang].solutions.hero;
+
   return (
     <Section>
       <Container>
         <ContentCol>
           <Badge>
-            <BadgeText>Собственная разработка</BadgeText>
+            <BadgeText>{tr.badge}</BadgeText>
           </Badge>
 
           <Title>
-            <span>Интеграция</span><MobileBr /> МойСклад<br />
-            и 1С Бухгалтерия
+            <span>{tr.titleAccent}</span><MobileBr />{tr.titleNormal.split("\n").map((line, i, arr) => i < arr.length - 1 ? <span key={i}>{line}<br /></span> : <span key={i}>{line}</span>)}
           </Title>
 
           <Description>
-            Интеграционные решения, разработанные специально для рынка Казахстана
+            {tr.description}
           </Description>
           <MobileDescription>
-            Настроим систему под ваш бизнес с бесплатным сопровождением: товарный учёт, обучение команды, интеграция с маркетплейсами
+            {tr.mobileDescription}
           </MobileDescription>
         </ContentCol>
 

@@ -3,6 +3,8 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -122,48 +124,16 @@ const ArrowIcon = styled.div`
   filter: invert(26%) sepia(62%) saturate(1200%) hue-rotate(265deg) brightness(80%) contrast(110%);
 `;
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
-const docs = [
-  {
-    title: "Договор оферты",
-    description: "Публичная оферта на оказание услуг по внедрению и настройке систем",
-    href: "#",
-  },
-  {
-    title: "Политика конфиденциальности",
-    description: "Порядок обработки и защиты персональных данных",
-    href: "#",
-  },
-  {
-    title: "Прайс-лист",
-    description: "Актуальный прайс-лист на все виды услуг компании",
-    href: "#",
-  },
-  {
-    title: "Техническое задание (шаблон)",
-    description: "Шаблон технического задания для проектов внедрения",
-    href: "#",
-  },
-  {
-    title: "Акт выполненных работ",
-    description: "Шаблон акта приёмки-передачи выполненных работ",
-    href: "#",
-  },
-  {
-    title: "Сертификат партнёра",
-    description: "Подтверждение партнёрского статуса МойСклад, amoCRM, Битрикс24",
-    href: "#",
-  },
-];
-
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function DocsCards() {
+  const { lang } = useLang();
+  const tr = t[lang].docs.cards;
+
   return (
     <Section>
       <Container>
-        {docs.map((doc) => (
+        {tr.items.map((doc) => (
           <Card key={doc.title}>
             <CardTop>
               <IconWrapper>
@@ -174,8 +144,8 @@ export default function DocsCards() {
                 <Description>{doc.description}</Description>
                 <CardFooter>
                   <FileLabel>PDF</FileLabel>
-                  <ViewButton href={doc.href}>
-                    Просмотр
+                  <ViewButton href="#">
+                    {tr.viewBtn}
                     <ArrowIcon>
                       <Image src="/icons/arrowRight.svg" alt="" width={14} height={14} unoptimized />
                     </ArrowIcon>
@@ -184,7 +154,6 @@ export default function DocsCards() {
               </CardContent>
             </CardTop>
           </Card>
-
         ))}
       </Container>
     </Section>

@@ -3,6 +3,8 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -124,18 +126,21 @@ const CTAButton = styled(Link)`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function PricingCTA() {
+  const { lang } = useLang();
+  const tr = t[lang].pricing.cta;
+
   return (
     <Section>
       <Container>
         <Card>
           <ContentCol>
-            <Title>Нужен индивидуальный<br />расчёт?</Title>
+            <Title>{tr.title.split("\n").map((line, i, arr) => i < arr.length - 1 ? <span key={i}>{line}<br /></span> : <span key={i}>{line}</span>)}</Title>
             <Badge>
               <Image src="/icons/whiteSuccess_colored.svg" alt="" width={16} height={16} unoptimized />
-              <BadgeText>Оставьте заявку, перезвоним через 15 минут</BadgeText>
+              <BadgeText>{tr.badge}</BadgeText>
             </Badge>
             <CTAButton href="/contact">
-              Связаться с нами
+              {tr.btn}
               <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} unoptimized />
             </CTAButton>
           </ContentCol>

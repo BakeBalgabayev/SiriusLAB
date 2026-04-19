@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -329,6 +331,9 @@ const RingoBottom = styled.span`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Footer() {
+  const { lang } = useLang();
+  const tr = t[lang].footer;
+
   return (
     <FooterWrapper>
       <Inner>
@@ -337,34 +342,34 @@ export default function Footer() {
           <Brand>
             <Image src="/icons/logo.svg" alt="Sirius Solutions Lab" width={137} height={36} />
             <BrandDesc>
-              Топ-3 партнёр сервисов AmoCRM, МойСклад и Битрикс24. Автоматизация бизнес-процессов под ключ.
+              {tr.desc}
             </BrandDesc>
           </Brand>
 
           <NavColumns>
             {/* Навигация */}
             <Column>
-              <ColTitle>Навигация</ColTitle>
+              <ColTitle>{tr.navTitle}</ColTitle>
               <ColLinks>
-                <li><ColLink href="/">Главная</ColLink></li>
-                <li><ColLink href="/services">Услуги</ColLink></li>
-                <li><ColLink href="/solutions">Решения</ColLink></li>
-                <li><ColLink href="/tariffs">Тарифы</ColLink></li>
+                <li><ColLink href="/">{tr.links.home}</ColLink></li>
+                <li><ColLink href="/services">{tr.links.services}</ColLink></li>
+                <li><ColLink href="/solutions">{tr.links.solutions}</ColLink></li>
+                <li><ColLink href="/tariffs">{tr.links.tariffs}</ColLink></li>
               </ColLinks>
             </Column>
 
             {/* Ресурсы */}
             <Column>
-              <ColTitle>Ресурсы</ColTitle>
+              <ColTitle>{tr.resourcesTitle}</ColTitle>
               <ColLinks>
-                <li><ColLink href="/docs">Документы</ColLink></li>
-                <li><ColLink href="/contact">Контакты</ColLink></li>
+                <li><ColLink href="/docs">{tr.links.docs}</ColLink></li>
+                <li><ColLink href="/contact">{tr.links.contact}</ColLink></li>
               </ColLinks>
             </Column>
 
             {/* Контакты */}
             <Column>
-              <ColTitle>Контакты</ColTitle>
+              <ColTitle>{tr.contactTitle}</ColTitle>
               <ContactRow>
                 <Phone href="tel:+77000200959">+7 700 020 09 59</Phone>
                 <Socials>
@@ -384,9 +389,9 @@ export default function Footer() {
         </TopSection>
 
         <BottomBar>
-          <Copyright>© 2024 Sirius Solutions Lab. Все права защищены.</Copyright>
+          <Copyright>{tr.copyright}</Copyright>
           <Partners>
-            <PartnerLabel>Официальный партнёр:</PartnerLabel>
+            <PartnerLabel>{tr.partnerLabel}</PartnerLabel>
             <PartnerNames>
               <PartnerName>МойСклад</PartnerName>
               <PartnerName>amoCRM</PartnerName>

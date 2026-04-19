@@ -1,6 +1,8 @@
 "use client";
 
 import styled from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -149,57 +151,27 @@ const ProblemListItem = styled.li`
   }
 `;
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
-const PROBLEMS = [
-  {
-    title: "Проблемы в учете товаров",
-    items: [
-      "Некорректные остатки товаров",
-      "Ручной процесс ведения учета товаров",
-    ],
-  },
-  {
-    title: "Управление задачами и проектами",
-    items: [
-      "До 30% задач теряются без централизованной системы",
-      "Сроки срываются из-за отсутствия контроля",
-    ],
-  },
-  {
-    title: "Потеря клиентов",
-    items: [
-      "До 20% заявок не доходят до сделки",
-      "Отсутствие воронки = непредсказуемые продажи",
-    ],
-  },
-  {
-    title: "Непрозрачность данных",
-    items: [
-      "Финансовые показатели и аналитика собирается вручную в Excell",
-      "Данные находятся в разных таблицах и программах",
-    ],
-  },
-] as const;
-
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ProblemsSection() {
+  const { lang } = useLang();
+  const tr = t[lang].problems;
+
   return (
     <Section>
       <Card>
         <Left>
           <Badge>
             <BadgeIcon>i</BadgeIcon>
-            Потери прибыли начинаются с хаоса в процессах
+            {tr.badge}
           </Badge>
           <Heading>
-            Мы знаем, с чем <br />вы <span>сталкиваетесь</span>
+            {tr.heading1}<br />{tr.heading2}<span>{tr.headingAccent}</span>
           </Heading>
         </Left>
 
         <Right>
-          {PROBLEMS.map((problem) => (
+          {tr.items.map((problem) => (
             <ProblemItem key={problem.title}>
               <ProblemTitle>{problem.title}</ProblemTitle>
               <ProblemList>

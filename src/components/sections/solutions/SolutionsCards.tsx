@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import styled from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -112,6 +114,9 @@ const Badge = styled.span`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function SolutionsCards() {
+  const { lang } = useLang();
+  const tr = t[lang].solutions.cards;
+
   return (
     <Section>
       <Container>
@@ -122,8 +127,8 @@ export default function SolutionsCards() {
             <Image src="/icons/Frame 427321793.png" alt="" width={40} height={40} unoptimized />
           </IconSquare>
           <div>
-            <StatValue>+60</StatValue>
-            <StatLabel>клиентов успешно<br />пользуются интеграцией</StatLabel>
+            <StatValue>{tr.stat1Value}</StatValue>
+            <StatLabel>{tr.stat1Label.split("\n").map((line, i, arr) => i < arr.length - 1 ? <span key={i}>{line}<br /></span> : <span key={i}>{line}</span>)}</StatLabel>
           </div>
         </InfoCard>
 
@@ -132,9 +137,9 @@ export default function SolutionsCards() {
             <Image src="/icons/Frame 427321794.png" alt="" width={40} height={40} unoptimized />
           </IconSquare>
           <CardText>
-            Пока вы пользуетесь интеграцией мы оказываем постоянную
-            <Badge>бесплатную</Badge>
-            поддержку
+            {tr.supportText1}
+            <Badge>{tr.supportBadge}</Badge>
+            {tr.supportText2}
           </CardText>
         </InfoCard>
       </Container>

@@ -1,6 +1,8 @@
 "use client";
 
 import styled from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -131,18 +133,21 @@ const Description = styled.p`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function DocsHero() {
+  const { lang } = useLang();
+  const tr = t[lang].docs.hero;
+
   return (
     <Section>
       <Container>
         <ContentCol>
           <Badge>
-            <BadgeText>Готовые шаблоны</BadgeText>
+            <BadgeText>{tr.badge}</BadgeText>
           </Badge>
 
-          <Title>Документы</Title>
+          <Title>{tr.title}</Title>
 
           <Description>
-            Шаблоны документов и юридическая информация
+            {tr.description}
           </Description>
         </ContentCol>
 

@@ -1,6 +1,8 @@
 "use client";
 
 import styled from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -136,22 +138,24 @@ const Description = styled.p`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function PricingHero() {
+  const { lang } = useLang();
+  const tr = t[lang].pricing.hero;
+
   return (
     <Section>
       <Container>
         <ContentCol>
           <Badge>
-            <BadgeText>Прозрачная стоимость</BadgeText>
+            <BadgeText>{tr.badge}</BadgeText>
           </Badge>
 
           <Title>
-            Прозрачные<br />
-            <span>тарифные пакеты</span>
+            {tr.title1}<br />
+            <span>{tr.titleAccent}</span>
           </Title>
 
           <Description>
-            Выберите подходящий пакет внедрения
-            <br />или запросите индивидуальное предложение
+            {tr.description.split("\n").map((line, i, arr) => i < arr.length - 1 ? <span key={i}>{line}<br /></span> : <span key={i}>{line}</span>)}
           </Description>
         </ContentCol>
 

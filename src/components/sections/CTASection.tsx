@@ -2,6 +2,8 @@
 
 import styled from "styled-components";
 import Image from "next/image";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 const Section = styled.section`
   max-width: 1400px;
@@ -176,6 +178,9 @@ const ButtonOutline = styled.a`
 `;
 
 export default function CTASection() {
+  const { lang } = useLang();
+  const tr = t[lang].cta;
+
   return (
     <Section>
       <Card>
@@ -188,19 +193,19 @@ export default function CTASection() {
             unoptimized
           />
         </DesktopImage>
-        <Title>Готовы автоматизировать<br />бизнес?</Title>
+        <Title>{tr.title.split("\n").map((line, i, arr) => i < arr.length - 1 ? <span key={i}>{line}<br /></span> : <span key={i}>{line}</span>)}</Title>
         <Badge>
           <Image src="/icons/whiteSuccess_colored.svg" alt="" width={20} height={20} />
           <BadgeText>
-            Оставьте заявку или напишите нам на WhatsApp. Перезвоним через 15 минут
+            {tr.badge}
           </BadgeText>
         </Badge>
         <Buttons>
           <ButtonPrimary href="https://wa.me/" target="_blank" rel="noopener noreferrer">
-            Написать в WhatsApp
+            {tr.whatsapp}
           </ButtonPrimary>
           <ButtonOutline href="#">
-            Оставить заявку
+            {tr.apply}
             <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} />
           </ButtonOutline>
         </Buttons>

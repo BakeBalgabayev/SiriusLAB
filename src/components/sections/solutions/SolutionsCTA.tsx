@@ -3,6 +3,8 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -12,7 +14,7 @@ const Section = styled.section`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     padding: 0 16px;
-    margin-bottom: 60px;
+    margin-bottom: 100px;
   }
 `;
 
@@ -46,6 +48,10 @@ const ContentCol = styled.div`
   justify-content: space-between;
   flex: 1;
   z-index: 1;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    gap: 24px;
+  }
 `;
 
 const ImageCol = styled.div`
@@ -137,21 +143,24 @@ const Top = styled.div`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function SolutionsCTA() {
+  const { lang } = useLang();
+  const tr = t[lang].solutions.cta;
+
   return (
     <Section>
       <Container>
         <Card>
           <ContentCol>
             <Top>
-              <Title>Хотите внедрить<br />интеграцию?</Title>
+              <Title>{tr.title.split("\n").map((line, i, arr) => i < arr.length - 1 ? <span key={i}>{line}<br /></span> : <span key={i}>{line}</span>)}</Title>
               <Badge>
                 <Image src="/icons/whiteSuccess_colored.svg" alt="" width={16} height={16} unoptimized />
-                <BadgeText>Оставьте заявку и мы расскажем подробнее о нашем решении</BadgeText>
+                <BadgeText>{tr.badge}</BadgeText>
               </Badge>
             </Top>
 
             <CTAButton href="/contact">
-              Запросить демо
+              {tr.btn}
               <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} unoptimized />
             </CTAButton>
           </ContentCol>

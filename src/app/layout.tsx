@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import StyledComponentsRegistry from "@/lib/registry";
 import ThemeProviderWrapper from "@/components/providers/ThemeProviderWrapper";
+import { LanguageProvider } from "@/context/LanguageContext";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -74,9 +75,11 @@ export default function RootLayout({
       <body>
         <StyledComponentsRegistry>
           <ThemeProviderWrapper>
-            <Header />
-            <main>{children}</main>
-            <Footer />
+            <LanguageProvider>
+              <Header />
+              <main>{children}</main>
+              <Footer />
+            </LanguageProvider>
           </ThemeProviderWrapper>
         </StyledComponentsRegistry>
       </body>

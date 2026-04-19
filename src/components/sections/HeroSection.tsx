@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -75,11 +77,11 @@ const Content = styled.div`
 
 const PartnerBadge = styled.div`
   display: inline-flex;
+  align-self: flex-start;
   align-items: center;
   gap: 8px;
-  width: 396px;
   height: 42px;
-  padding: 8px 16px;
+  padding: 8px 20px;
   border: 1px solid rgba(145, 49, 174, 0.5);
   border-radius: 9999px;
   font-family: ${({ theme }) => theme.fonts.inter};
@@ -92,7 +94,7 @@ const PartnerBadge = styled.div`
   white-space: nowrap;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    width: 100%;
+    align-self: stretch;
     white-space: normal;
     height: auto;
   }
@@ -309,6 +311,9 @@ const HeroImageWrapper = styled.div`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function HeroSection() {
+  const { lang } = useLang();
+  const tr = t[lang].hero;
+
   return (
     <Section>
       <GlowBackground />
@@ -316,24 +321,23 @@ export default function HeroSection() {
       <Inner>
         <Content>
           <PartnerBadge>
-            Партнёр сервисов AmoCRM, МойСклад и Битрикс24
+            {tr.badge}
           </PartnerBadge>
 
           <Heading>
-            <HeadingAccent>Автоматизируем</HeadingAccent>
+            <HeadingAccent>{tr.heading1}</HeadingAccent>
             <br />
-            <HeadingWhite>товарный учёт </HeadingWhite>
+            <HeadingWhite>{tr.heading2}</HeadingWhite>
             <MobileBr />
-            <HeadingAccentToWhite>за 7 дней</HeadingAccentToWhite>
+            <HeadingAccentToWhite>{tr.heading3}</HeadingAccentToWhite>
           </Heading>
 
           <Description>
-            Настроим и внедрим систему, которая упростит ваш бизнес: прозрачный учёт,
-            обученная команда и интеграции с маркетплейсами. С бесплатным сопровождением.
+            {tr.description}
           </Description>
 
           <CTAButton href="/contact">
-            Попробовать бесплатно
+            {tr.cta}
             <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} unoptimized />
           </CTAButton>
 
@@ -358,7 +362,7 @@ export default function HeroSection() {
               ))}
             </ClientLogos>
             <TrustText>
-              <strong>200+ Компаний</strong> уже работают с нами
+              <strong>{tr.trustText1}</strong>{tr.trustText2}
             </TrustText>
           </TrustRow>
 

@@ -4,6 +4,8 @@ import styled, { keyframes } from "styled-components";
 import Image from "next/image";
 import { useState, useRef, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -490,6 +492,7 @@ const ModalButton = styled.button`
 const PlanBadge = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   padding: 10px 14px;
   border-radius: 10px;
@@ -503,6 +506,28 @@ const PlanBadge = styled.div`
   span {
     color: rgba(145, 49, 174, 1);
     font-weight: 600;
+  }
+`;
+
+const PlanBadgeClose = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(145, 49, 174, 0.2);
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: rgba(145, 49, 174, 0.5);
+    color: rgba(255, 255, 255, 1);
   }
 `;
 
@@ -646,45 +671,14 @@ function formatPhone(raw: string): string {
 }
 
 
-const CITIES = [
-  { value: "almaty", label: "Алматы" },
-  { value: "astana", label: "Астана" },
-  { value: "shymkent", label: "Шымкент" },
-  { value: "karaganda", label: "Караганда" },
-  { value: "aktobe", label: "Актобе" },
-  { value: "taraz", label: "Тараз" },
-  { value: "pavlodar", label: "Павлодар" },
-  { value: "ust-kamenogorsk", label: "Усть-Каменогорск" },
-  { value: "atyrau", label: "Атырау" },
-  { value: "kostanay", label: "Костанай" },
-  { value: "semey", label: "Семей" },
-  { value: "kyzylorda", label: "Кызылорда" },
-  { value: "uralsk", label: "Уральск" },
-  { value: "petropavlovsk", label: "Петропавловск" },
-  { value: "aktau", label: "Актау" },
-  { value: "temirtau", label: "Темиртау" },
-  { value: "kokshetau", label: "Кокшетау" },
-  { value: "turkestan", label: "Туркестан" },
-  { value: "taldykorgan", label: "Талдыкорган" },
-  { value: "ekibastuz", label: "Экибастуз" },
-  { value: "rudny", label: "Рудный" },
-  { value: "zhezkazgan", label: "Жезказган" },
-  { value: "balkhash", label: "Балхаш" },
-  { value: "kentau", label: "Кентау" },
-  { value: "zhanaozen", label: "Жанаозен" },
-];
-
-const SERVICES = [
-  { value: "moysklad-impl", label: "Внедрение МоегоСклада" },
-  { value: "amocrm-impl", label: "Внедрение AmoCRM" },
-  { value: "bitrix-impl", label: "Внедрение Bitrix" },
-  { value: "moysklad-int", label: "Интеграция МоегоСклада" },
-  { value: "consultation", label: "Консультация" },
-];
-
 function ContactSectionInner() {
   const searchParams = useSearchParams();
-  const selectedPlan = searchParams.get("plan");
+  const [selectedPlan, setSelectedPlan] = useState(searchParams.get("plan"));
+  const { lang } = useLang();
+  const tr = t[lang].contact;
+
+  const CITIES = tr.cities as unknown as { value: string; label: string }[];
+  const SERVICES = tr.services as unknown as { value: string; label: string }[];
 
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
@@ -742,16 +736,16 @@ function ContactSectionInner() {
     <Section>
       <Container>
         <Badge>
-          <BadgeText>Контакты</BadgeText>
+          <BadgeText>{tr.badge}</BadgeText>
         </Badge>
 
         <Card>
           <LeftTop>
             <Title>
-              <TitleAccent>Свяжитесь </TitleAccent>
-              <TitleNormal>с нами</TitleNormal>
+              <TitleAccent>{tr.titleAccent}</TitleAccent>
+              <TitleNormal>{tr.titleNormal}</TitleNormal>
             </Title>
-            <Subtitle>Оставьте заявку, мы перезвоним через 15 минут</Subtitle>
+            <Subtitle>{tr.subtitle}</Subtitle>
           </LeftTop>
 
           <LeftBottom>
@@ -762,7 +756,7 @@ function ContactSectionInner() {
                     <Image src="/icons/phone_icon.svg" alt="" width={18} height={18} unoptimized />
                   </InfoIconWrap>
                   <InfoTextWrap>
-                    <InfoLabel>Отдел продаж:</InfoLabel>
+                    <InfoLabel>{tr.salesLabel}</InfoLabel>
                     <InfoValue>+7 700 020 09 59</InfoValue>
                   </InfoTextWrap>
                 </InfoPill>
@@ -771,7 +765,7 @@ function ContactSectionInner() {
                     <Image src="/icons/phone_icon.svg" alt="" width={18} height={18} unoptimized />
                   </InfoIconWrap>
                   <InfoTextWrap>
-                    <InfoLabel>Тех. поддержка:</InfoLabel>
+                    <InfoLabel>{tr.supportLabel}</InfoLabel>
                     <InfoValue>+7 700 020 09 55</InfoValue>
                   </InfoTextWrap>
                 </InfoPill>
@@ -794,47 +788,52 @@ function ContactSectionInner() {
           <RightCol>
             {selectedPlan && (
               <PlanBadge>
-                Выбранный тариф: <span>{selectedPlan}</span>
+                <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 500 }}>
+                  {tr.selectedPlan} <span>{selectedPlan}</span>
+                </span>
+                <PlanBadgeClose type="button" onClick={() => setSelectedPlan(null)}>
+                  ✕
+                </PlanBadgeClose>
               </PlanBadge>
             )}
             <FieldGroup>
-              <Label>Имя</Label>
+              <Label>{tr.fields.name}</Label>
               <Input
                 type="text"
-                placeholder="Ваше имя"
+                placeholder={tr.fields.namePlaceholder}
                 value={name}
                 $error={errors.name}
                 onChange={e => { setName(e.target.value); if (errors.name) setErrors(p => ({ ...p, name: false })); }}
               />
-              {errors.name && <FieldError>Введите ваше имя</FieldError>}
+              {errors.name && <FieldError>{tr.fields.nameError}</FieldError>}
             </FieldGroup>
 
             <FieldGroup>
-              <Label>Город</Label>
+              <Label>{tr.fields.city}</Label>
               <CityCombobox
-                placeholder="Введите или выберите город"
+                placeholder={tr.fields.cityPlaceholder}
                 options={CITIES}
                 value={city}
                 onChange={v => { setCity(v); if (errors.city) setErrors(p => ({ ...p, city: false })); }}
                 error={errors.city}
               />
-              {errors.city && <FieldError>Не выбран город</FieldError>}
+              {errors.city && <FieldError>{tr.fields.cityError}</FieldError>}
             </FieldGroup>
 
             <FieldGroup>
-              <Label>Услуга</Label>
+              <Label>{tr.fields.service}</Label>
               <CustomDropdown
-                placeholder="Выберите услугу"
+                placeholder={tr.fields.servicePlaceholder}
                 options={SERVICES}
                 value={service}
                 onChange={v => { setService(v); if (errors.service) setErrors(p => ({ ...p, service: false })); }}
                 error={errors.service}
               />
-              {errors.service && <FieldError>Услуга не выбрана</FieldError>}
+              {errors.service && <FieldError>{tr.fields.serviceError}</FieldError>}
             </FieldGroup>
 
             <FieldGroup>
-              <Label>Номер телефона</Label>
+              <Label>{tr.fields.phone}</Label>
               <Input
                 type="tel"
                 placeholder="+7 777 777 77 77"
@@ -842,17 +841,17 @@ function ContactSectionInner() {
                 $error={errors.phone}
                 onChange={e => { handlePhoneChange(e); if (errors.phone) setErrors(p => ({ ...p, phone: false })); }}
               />
-              {errors.phone && <FieldError>Введите корректный номер телефона</FieldError>}
+              {errors.phone && <FieldError>{tr.fields.phoneError}</FieldError>}
             </FieldGroup>
 
             {status === "error" && (
-              <StatusMessage $error>Ошибка отправки. Пожалуйста, попробуйте ещё раз.</StatusMessage>
+              <StatusMessage $error>{tr.errorMsg}</StatusMessage>
             )}
 
             <SubmitButton type="submit" onClick={handleSubmit} disabled={loading}>
               {loading ? <Spinner /> : (
                 <>
-                  Отправить заявку
+                  {tr.submitBtn}
                   <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} unoptimized style={{ filter: 'brightness(0) invert(1)' }} />
                 </>
               )}
@@ -867,11 +866,11 @@ function ContactSectionInner() {
             <ModalImage>
               <Image src="/images/thirdP_2.png" alt="" width={280} height={160} style={{ objectFit: "contain" }} />
             </ModalImage>
-            <ModalTitle>Мы приняли вашу заявку</ModalTitle>
+            <ModalTitle>{tr.modal.title}</ModalTitle>
             <ModalDesc>
-              Перезвоним через 15 минут, ответим на вопросы и предложим решение
+              {tr.modal.desc}
             </ModalDesc>
-            <ModalButton onClick={() => setStatus("idle")}>Хорошо</ModalButton>
+            <ModalButton onClick={() => setStatus("idle")}>{tr.modal.btn}</ModalButton>
           </Modal>
         </Backdrop>
       )}

@@ -4,7 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Animations ───────────────────────────────────────────────────────────────
 
@@ -129,6 +131,37 @@ const HamburgerButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+`;
+
+// ─── Language Switcher ────────────────────────────────────────────────────────
+
+const LangSwitcher = styled.div`
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(145, 49, 174, 0.4);
+  flex-shrink: 0;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    display: none;
+  }
+`;
+
+const LangBtn = styled.button<{ $active: boolean }>`
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  background: ${({ $active }) => $active ? 'rgba(145, 49, 174, 1)' : 'transparent'};
+  color: ${({ $active }) => $active ? '#fff' : 'rgba(255,255,255,0.5)'};
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 22px;
+
+  &:hover {
+    color: #fff;
   }
 `;
 
@@ -261,16 +294,22 @@ const MobileSocialLink = styled.a`
   }
 `;
 
-// ─── Nav links config ─────────────────────────────────────────────────────────
+const MobileLangRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
 
-const NAV_LINKS = [
-  { href: "/", label: "Главная" },
-  { href: "/services", label: "Услуги" },
-  { href: "/solutions", label: "Решения" },
-  { href: "/tariffs", label: "Тарифы" },
-  { href: "/docs", label: "Документы" },
-  { href: "/contact", label: "Контакты" },
-] as const;
+  ${LangSwitcher} {
+    display: flex;
+  }
+`;
+
+const MobileLangLabel = styled.span`
+  font-family: var(--font-inter), sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+`;
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -278,6 +317,18 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { lang, setLang } = useLang();
+
+  const tr = t[lang].nav;
+
+  const NAV_LINKS = [
+    { href: "/", label: tr.home },
+    { href: "/services", label: tr.services },
+    { href: "/solutions", label: tr.solutions },
+    { href: "/tariffs", label: tr.tariffs },
+    { href: "/docs", label: tr.docs },
+    { href: "/contact", label: tr.contact },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -305,6 +356,11 @@ export default function Header() {
               </NavLink>
             ))}
           </Nav>
+
+          <LangSwitcher>
+            <LangBtn $active={lang === "ru"} onClick={() => setLang("ru")}>RU</LangBtn>
+            <LangBtn $active={lang === "kz"} onClick={() => setLang("kz")}>KZ</LangBtn>
+          </LangSwitcher>
 
           <Socials>
             <SocialLink href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -343,10 +399,17 @@ export default function Header() {
         </MobileNavList>
 
         <MobileBottom>
+          <MobileLangRow>
+            <MobileLangLabel>Язык / Тіл:</MobileLangLabel>
+            <LangSwitcher>
+              <LangBtn $active={lang === "ru"} onClick={() => setLang("ru")}>RU</LangBtn>
+              <LangBtn $active={lang === "kz"} onClick={() => setLang("kz")}>KZ</LangBtn>
+            </LangSwitcher>
+          </MobileLangRow>
           <MobilePhone href="tel:+77000200959">+7 700 020 09 59</MobilePhone>
           <MobileActions>
             <WhatsAppButton href="https://wa.me/77000200959" target="_blank" rel="noopener noreferrer">
-              Написать в WhatsApp
+              {tr.whatsapp}
             </WhatsAppButton>
             <MobileSocialLink href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <InstagramIcon />

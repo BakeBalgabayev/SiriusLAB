@@ -3,6 +3,8 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -156,77 +158,27 @@ const CheckIcon = styled.div<{ $white?: boolean }>`
   `}
 `;
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
-const plans = [
-  {
-    badge: "Стартовый",
-    name: "Базовый",
-    subtitle: "Базовая настройка систем под процесс компании",
-    price: "250 000 тг",
-    featured: false,
-    features: [
-      "Базовая и стандартная настройка системы",
-      "Создание и настройка номенклатуры на основе информации от заказчика",
-      "Настройка торгового оборудования на 1 точку продаж",
-      "Обучение сотрудников до 5 человек по работе в системе",
-      "Обучение по администрированию системы до 1 чел.",
-      "Гарантийная поддержка 1 месяц",
-    ],
-  },
-  {
-    badge: "Бизнес",
-    featuredBadge: "Популярный",
-    name: "Оптимальный",
-    subtitle: "Для среднего бизнеса",
-    price: "350 000 тг",
-    featured: true,
-    features: [
-      "Базовая и стандартная настройка системы",
-      "Создание и настройка номенклатуры на основе информации от заказчика",
-      "Настройка торгового оборудования на 1 точку продаж",
-      "Обучение сотрудников до 5 человек по работе в системе",
-      "Обучение по администрированию системы до 1 чел.",
-      "Гарантийная поддержка 1 месяц",
-      "Интеграция с Kaspi магазином (1 кабинет) / Интеграция с 1С для Казахстана",
-    ],
-  },
-  {
-    badge: "Максимальный",
-    name: "Корпоративный",
-    subtitle: "Для крупного бизнеса",
-    price: "650 000 тг",
-    featured: false,
-    features: [
-      "Базовая и стандартная настройка системы",
-      "Создание и настройка номенклатуры на основе информации от заказчика",
-      "Настройка торгового оборудования на 1 точку продаж",
-      "Обучение сотрудников по работе в системе",
-      "Обучение по администрированию системы до 1 чел.",
-      "Гарантийная поддержка 3 месяца",
-      "Интеграция с Kaspi магазином (1 кабинет) / Интеграция с 1С для Казахстана",
-    ],
-  },
-];
-
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function PricingCards() {
+  const { lang } = useLang();
+  const tr = t[lang].pricing;
+
   return (
     <Section>
       <Container>
-        {plans.map((plan) => (
+        {tr.plans.map((plan) => (
           <Card key={plan.name} $featured={plan.featured}>
             <CardTop>
               <Badge>{plan.badge}</Badge>
-              {plan.featuredBadge && <FeaturedBadge>{plan.featuredBadge}</FeaturedBadge>}
+              {plan.featured && <FeaturedBadge>{tr.popularBadge}</FeaturedBadge>}
             </CardTop>
 
             <PlanName>{plan.name}</PlanName>
             <PlanSubtitle>{plan.subtitle}</PlanSubtitle>
             <Price>{plan.price}</Price>
 
-            <CTAButton href={`/contact?plan=${encodeURIComponent(plan.name)}`}>Оставить заявку</CTAButton>
+            <CTAButton href={`/contact?plan=${encodeURIComponent(plan.urlParam)}`}>{tr.applyBtn}</CTAButton>
 
             <Divider />
 

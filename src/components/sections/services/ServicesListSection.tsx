@@ -3,6 +3,8 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -195,61 +197,24 @@ const CheckIcon = styled.div`
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const SERVICES = [
-  {
-    icon: "/images/moysklad.png",
-    title: "Внедрение МойСклад",
-    desc: "Полная настройка складского учёта, продаж и аналитики для вашего бизнеса",
-    href: "/contact",
-    includes: [
-      "Настройка справочников и номенклатуры",
-      "Автоматизация складского учета",
-      "Настройка отчётов и аналитики",
-      "Интеграция с маркетплейсами, amoCRM, Битрикс24",
-      "Обучение сотрудников",
-    ],
-  },
-  {
-    icon: "/images/amocrm.png",
-    title: "Внедрение amoCRM",
-    desc: "Настройка CRM-системы для управления продажами и клиентской базой",
-    href: "/contact",
-    includes: [
-      "Настройка воронок продаж",
-      "Интеграция с IP-телефонией",
-      "Подключение мессенджеров",
-      "Автоматизация процессов",
-      "Настройка аналитики и отчётов",
-    ],
-  },
-  {
-    icon: "/images/bitrix24.png",
-    title: "Внедрение Битрикс24",
-    desc: "Корпоративный портал, CRM, задачи и коммуникации в одной системе",
-    href: "/contact",
-    includes: [
-      "Настройка CRM и воронок продаж",
-      "Управление задачами и проектами",
-      "Корпоративный портал",
-      "Бизнес-процессы и автоматизация",
-      "Интеграция с МойСклад, IP телефония, WhatsApp, Telegram, Instagram",
-    ],
-  },
-];
+const SERVICE_ICONS = ["/images/moysklad.png", "/images/amocrm.png", "/images/bitrix24.png"];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ServicesListSection() {
+  const { lang } = useLang();
+  const tr = t[lang].servicesPage.list;
+
   return (
     <Section>
       <Container>
-        {SERVICES.map((service) => (
+        {tr.items.map((service, i) => (
           <Card key={service.title}>
             <Left>
               <TopRow>
                 <IconWrap>
                   <Image
-                    src={service.icon}
+                    src={SERVICE_ICONS[i]}
                     alt=""
                     width={32}
                     height={32}
@@ -262,15 +227,15 @@ export default function ServicesListSection() {
                 </TitleBlock>
               </TopRow>
               <ButtonRow>
-                <CTAButton href={service.href}>
-                  Узнать стоимость
+                <CTAButton href="/contact">
+                  {tr.costBtn}
                   <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} unoptimized />
                 </CTAButton>
               </ButtonRow>
             </Left>
 
             <Right>
-              <IncludesLabel>Что входит:</IncludesLabel>
+              <IncludesLabel>{tr.includesLabel}</IncludesLabel>
               <IncludesList>
                 {service.includes.map((item) => (
                   <IncludesItem key={item}>
@@ -284,8 +249,8 @@ export default function ServicesListSection() {
             </Right>
 
             <MobileButtonRow>
-              <CTAButton href={service.href}>
-                Узнать стоимость →
+              <CTAButton href="/contact">
+                {tr.costBtn} →
               </CTAButton>
             </MobileButtonRow>
           </Card>

@@ -2,6 +2,8 @@
 
 import React from "react";
 import styled from "styled-components";
+import { useLang } from "@/context/LanguageContext";
+import { t } from "@/lib/translations";
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -109,42 +111,27 @@ const DesktopBr = styled.br`
   }
 `;
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
-const STEPS: { num: string; title: string; desc: React.ReactNode }[] = [
-  {
-    num: "01",
-    title: "Синхронизация",
-    desc: <>Автоматический перенос первичных документов,<DesktopBr />номенклатуры, контрагентов</>,
-  },
-  {
-    num: "02",
-    title: "Валидация",
-    desc: <>Проверка данных на корректность перед переносом,<DesktopBr />исключение дублей и ошибок</>,
-  },
-  {
-    num: "03",
-    title: "Мониторинг",
-    desc: "Контроль за синхронизацией в реальном времени",
-  },
-];
-
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function SolutionsHowItWorks() {
+  const { lang } = useLang();
+  const tr = t[lang].solutions.howItWorks;
+
   return (
     <Section>
       <Container>
         <Card>
-          <Title>Как работает<br />интеграция</Title>
+          <Title>{tr.title.split("\n").map((line, i, arr) => i < arr.length - 1 ? <React.Fragment key={i}>{line}<br /></React.Fragment> : line)}</Title>
 
           <StepsList>
-            {STEPS.map((step) => (
+            {tr.steps.map((step) => (
               <StepItem key={step.num}>
                 <StepNumber>{step.num}</StepNumber>
                 <StepContent>
                   <StepTitle>{step.title}</StepTitle>
-                  <StepDesc>{step.desc}</StepDesc>
+                  <StepDesc>
+                    {step.desc.split("\n").map((line, i, arr) => i < arr.length - 1 ? <React.Fragment key={i}>{line}<DesktopBr /></React.Fragment> : line)}
+                  </StepDesc>
                 </StepContent>
               </StepItem>
             ))}
