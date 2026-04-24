@@ -108,7 +108,7 @@ export const t = {
     features: {
       titleLine1: "Все",
       titleLine2: "возможности",
-      titleLine3: "авторизации",
+      titleLine3: "автоматизации",
       items: [
         {
           title: "Автоматизация складского учёта",
