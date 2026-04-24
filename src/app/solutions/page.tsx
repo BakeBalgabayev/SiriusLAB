@@ -6,8 +6,24 @@ import SolutionsCards from "@/components/sections/solutions/SolutionsCards";
 import SolutionsCTA from "@/components/sections/solutions/SolutionsCTA";
 
 export const metadata: Metadata = {
-  title: "Решения — Sirius Solutions Lab",
-  description: "Интеграционные решения МойСклад и 1С Бухгалтерия для рынка Казахстана.",
+  title: "Решения — интеграция МойСклад с 1С и Kaspi",
+  description: "Готовые интеграционные решения: МойСклад с 1С Бухгалтерия, МойСклад с Kaspi. Касса МойСклад и товарный учёт для рынка Казахстана.",
+  keywords: [
+    "интеграция МойСклад с 1С",
+    "интеграция МойСклад с Kaspi",
+    "интеграция МойСклад с каспи",
+    "МойСклад",
+    "мой склад",
+    "программа мой склад",
+    "касса мойсклад",
+    "касса",
+    "товарный учет",
+    "Битрикс24",
+    "bitrix24",
+    "amoCRM",
+    "CRM",
+    "срм",
+  ],
 };
 
 export default function SolutionsPage() {
