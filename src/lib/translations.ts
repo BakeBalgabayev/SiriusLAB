@@ -547,7 +547,7 @@ export const t = {
     features: {
       titleLine1: "Барлық",
       titleLine2: "мүмкіндіктер",
-      titleLine3: "авторизация",
+      titleLine3: "автоматтандыру",
       items: [
         {
           title: "Қойма есебін автоматтандыру",
