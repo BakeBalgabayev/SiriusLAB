@@ -133,28 +133,35 @@ export default function DocsCards() {
   return (
     <Section>
       <Container>
-        {tr.items.map((doc) => (
-          <Card key={doc.title}>
-            <CardTop>
-              <IconWrapper>
-                <Image src="/icons/document_outlined.svg" alt="" width={30} height={30} unoptimized />
-              </IconWrapper>
-              <CardContent>
-                <Title>{doc.title}</Title>
-                <Description>{doc.description}</Description>
-                <CardFooter>
-                  <FileLabel>PDF</FileLabel>
-                  <ViewButton href="#">
-                    {tr.viewBtn}
-                    <ArrowIcon>
-                      <Image src="/icons/arrowRight.svg" alt="" width={14} height={14} unoptimized />
-                    </ArrowIcon>
-                  </ViewButton>
-                </CardFooter>
-              </CardContent>
-            </CardTop>
-          </Card>
-        ))}
+        {tr.items.map((doc) => {
+          const file = "file" in doc ? (doc as { file: string }).file : undefined;
+          return (
+            <Card key={doc.title}>
+              <CardTop>
+                <IconWrapper>
+                  <Image src="/icons/document_outlined.svg" alt="" width={30} height={30} unoptimized />
+                </IconWrapper>
+                <CardContent>
+                  <Title>{doc.title}</Title>
+                  <Description>{doc.description}</Description>
+                  <CardFooter>
+                    <FileLabel>PDF</FileLabel>
+                    <ViewButton
+                      href={file ?? "#"}
+                      target={file ? "_blank" : undefined}
+                      rel={file ? "noopener noreferrer" : undefined}
+                    >
+                      {tr.viewBtn}
+                      <ArrowIcon>
+                        <Image src="/icons/arrowRight.svg" alt="" width={14} height={14} unoptimized />
+                      </ArrowIcon>
+                    </ViewButton>
+                  </CardFooter>
+                </CardContent>
+              </CardTop>
+            </Card>
+          );
+        })}
       </Container>
     </Section>
   );
