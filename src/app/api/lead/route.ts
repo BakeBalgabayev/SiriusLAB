@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
         PHONE: [{ VALUE: phone, VALUE_TYPE: "WORK" }],
         COMMENTS: comments,
         SOURCE_ID: "WEB",
+        ASSIGNED_BY_ID: 5,
       },
     }),
   });
