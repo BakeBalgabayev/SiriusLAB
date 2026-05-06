@@ -3,9 +3,10 @@
   "configurations": [
     {
       "name": "siriuslab",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 3000
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": ["/Users/bauyrzhanbalgabayev/Desktop/Siriuslab/node_modules/.bin/next", "dev"],
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }

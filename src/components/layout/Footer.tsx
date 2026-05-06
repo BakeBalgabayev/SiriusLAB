@@ -373,13 +373,13 @@ export default function Footer() {
               <ContactRow>
                 <Phone href="tel:+77000200959">+7 700 020 09 59</Phone>
                 <Socials>
-                  <SocialLink href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <SocialLink href="https://www.instagram.com/siriuslab.kz?igsh=enhlZW95ZWd6MWh1&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <InstagramIcon />
                   </SocialLink>
-                  <SocialLink href="https://wa.me" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                  <SocialLink href="https://wa.me/77000200959" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                     <WhatsAppIcon />
                   </SocialLink>
-                  <SocialLink href="https://t.me" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                  <SocialLink href="https://t.me/Siriuslab_bot" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
                     <Image src="/icons/tg.svg" alt="Telegram" width={18} height={18} />
                   </SocialLink>
                 </Socials>

@@ -35,6 +35,28 @@ export const metadata: Metadata = {
     "интеграция МойСклад с Kaspi",
     "интеграция МойСклад с каспи",
   ],
+  openGraph: {
+    title: "Siriuslab — Автоматизируем товарный учёт за 7 дней",
+    description: "Внедрение МойСклад, Битрикс24 и amoCRM под ключ. Товарный учёт, касса МойСклад, интеграция с 1С и Kaspi. Прозрачный учёт и обученная команда за 7 дней.",
+    url: "https://siriuslab.kz",
+    siteName: "Sirius Solutions Lab",
+    images: [
+      {
+        url: "https://siriuslab.kz/images/thirdP_1.png",
+        width: 1200,
+        height: 630,
+        alt: "Sirius Solutions Lab — автоматизация бизнеса в Казахстане",
+      },
+    ],
+    type: "website",
+    locale: "ru_RU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Siriuslab — Автоматизируем товарный учёт за 7 дней",
+    description: "Внедрение МойСклад, Битрикс24 и amoCRM под ключ. Товарный учёт, касса МойСклад, интеграция с 1С и Kaspi. Прозрачный учёт и обученная команда за 7 дней.",
+    images: ["https://siriuslab.kz/images/thirdP_1.png"],
+  },
 };
 
 export default function HomePage() {

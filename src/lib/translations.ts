@@ -210,7 +210,7 @@ export const t = {
         { value: "moysklad-impl", label: "Внедрение МоегоСклада" },
         { value: "amocrm-impl", label: "Внедрение AmoCRM" },
         { value: "bitrix-impl", label: "Внедрение Bitrix" },
-        { value: "moysklad-int", label: "Интеграция МоегоСклада" },
+        { value: "moysklad-int", label: "Интеграция 1С с МойСклад" },
         { value: "consultation", label: "Консультация" },
       ],
     },
@@ -379,9 +379,9 @@ export const t = {
         ],
       },
       cta: {
-        title: "Хотите внедрить\nинтеграцию?",
+        title: "Подключайтесь и тестируйте\nбесплатно 7 дней",
         badge: "Оставьте заявку и мы расскажем подробнее о нашем решении",
-        btn: "Запросить демо",
+        btn: "Попробовать бесплатно",
       },
     },
     docs: {
@@ -650,7 +650,7 @@ export const t = {
         { value: "moysklad-impl", label: "МойСклад енгізу" },
         { value: "amocrm-impl", label: "AmoCRM енгізу" },
         { value: "bitrix-impl", label: "Bitrix енгізу" },
-        { value: "moysklad-int", label: "МойСклад интеграциясы" },
+        { value: "moysklad-int", label: "1С және МойСклад интеграциясы" },
         { value: "consultation", label: "Кеңес беру" },
       ],
     },
@@ -819,9 +819,9 @@ export const t = {
         ],
       },
       cta: {
-        title: "Интеграцияны\nенгізгіңіз келе ме?",
+        title: "Қосылыңыз және 7 күн\nтегін тексеріңіз",
         badge: "Өтінім қалдырыңыз, біз шешіміміз туралы толығырақ айтамыз",
-        btn: "Демо сұрату",
+        btn: "Тегін қолданып көру",
       },
     },
     docs: {

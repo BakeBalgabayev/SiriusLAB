@@ -6,8 +6,8 @@ import SolutionsCards from "@/components/sections/solutions/SolutionsCards";
 import SolutionsCTA from "@/components/sections/solutions/SolutionsCTA";
 
 export const metadata: Metadata = {
-  title: "Решения — интеграция МойСклад с 1С и Kaspi",
-  description: "Готовые интеграционные решения: МойСклад с 1С Бухгалтерия, МойСклад с Kaspi. Касса МойСклад и товарный учёт для рынка Казахстана.",
+  title: "Интеграция МойСклад с 1С:Бухгалтерия Казахстан | Sirius Solutions Lab",
+  description: "Автоматизация обмена данными между МойСклад и 1С:Бухгалтерия Казахстан. Экономия до 20 часов в неделю, снижение ошибок до 95%.",
   keywords: [
     "интеграция МойСклад с 1С",
     "интеграция МойСклад с Kaspi",
@@ -24,6 +24,28 @@ export const metadata: Metadata = {
     "CRM",
     "срм",
   ],
+  openGraph: {
+    title: "Интеграция МойСклад с 1С:Бухгалтерия Казахстан | Sirius Solutions Lab",
+    description: "Автоматизация обмена данными между МойСклад и 1С:Бухгалтерия Казахстан. Экономия до 20 часов в неделю, снижение ошибок до 95%.",
+    url: "https://siriuslab.kz/solutions",
+    siteName: "Sirius Solutions Lab",
+    images: [
+      {
+        url: "https://siriuslab.kz/images/thirdP_1.png",
+        width: 1200,
+        height: 630,
+        alt: "Интеграция МойСклад с 1С:Бухгалтерия Казахстан",
+      },
+    ],
+    type: "website",
+    locale: "ru_RU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Интеграция МойСклад с 1С:Бухгалтерия Казахстан | Sirius Solutions Lab",
+    description: "Автоматизация обмена данными между МойСклад и 1С:Бухгалтерия Казахстан. Экономия до 20 часов в неделю, снижение ошибок до 95%.",
+    images: ["https://siriuslab.kz/images/thirdP_1.png"],
+  },
 };
 
 export default function SolutionsPage() {
