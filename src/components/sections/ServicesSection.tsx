@@ -252,21 +252,18 @@ export default function ServicesSection() {
         : null;
 
       if (token) {
-        const res = await fetch("/api/recaptcha", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token }),
-        });
-        const data = await res.json();
-        if (data.ok && newTab) {
-          newTab.location.href = link;
-        } else {
-          newTab?.close();
+        try {
+          await fetch("/api/recaptcha", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token }),
+          });
+        } catch {
+          // игнорируем ошибку верификации
         }
-      } else {
-        // капча не загрузилась — пускаем
-        if (newTab) newTab.location.href = link;
       }
+      // всегда пускаем — капча только для аналитики
+      if (newTab) newTab.location.href = link;
     } catch {
       if (newTab) newTab.location.href = link;
     }

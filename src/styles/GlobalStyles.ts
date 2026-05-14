@@ -45,6 +45,10 @@ const GlobalStyles = createGlobalStyle`
     line-height: 1.15;
     font-weight: ${({ theme }) => theme.fontWeights.bold};
   }
+
+  .grecaptcha-badge {
+    visibility: hidden !important;
+  }
 `;
 
 export default GlobalStyles;
