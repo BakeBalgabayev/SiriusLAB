@@ -235,21 +235,40 @@ export default function ServicesSection() {
     if (!link) return;
     e.preventDefault();
 
+    // Открываем вкладку сразу при клике — до async, чтобы не блокировал popup blocker
+    const newTab = window.open("", "_blank");
+
     try {
-      await new Promise<void>((resolve) => window.grecaptcha.ready(resolve));
-      const token = await window.grecaptcha.execute(SITE_KEY, { action: "try_free" });
-      const res = await fetch("/api/recaptcha", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
+      await new Promise<void>((resolve) => {
+        if (window.grecaptcha) {
+          window.grecaptcha.ready(resolve);
+        } else {
+          resolve();
+        }
       });
-      const data = await res.json();
-      if (data.ok) {
-        window.open(link, "_blank", "noopener,noreferrer");
+
+      const token = window.grecaptcha
+        ? await window.grecaptcha.execute(SITE_KEY, { action: "try_free" })
+        : null;
+
+      if (token) {
+        const res = await fetch("/api/recaptcha", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token }),
+        });
+        const data = await res.json();
+        if (data.ok && newTab) {
+          newTab.location.href = link;
+        } else {
+          newTab?.close();
+        }
+      } else {
+        // капча не загрузилась — пускаем
+        if (newTab) newTab.location.href = link;
       }
     } catch {
-      // если капча не загрузилась — всё равно пускаем
-      window.open(link, "_blank", "noopener,noreferrer");
+      if (newTab) newTab.location.href = link;
     }
   }, []);
 
