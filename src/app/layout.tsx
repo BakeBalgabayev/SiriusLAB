@@ -115,6 +115,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
         <Script
+          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+          strategy="afterInteractive"
+        />
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-WRR7RM9ZVV"
           strategy="afterInteractive"
         />

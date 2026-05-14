@@ -3,8 +3,18 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { useCallback } from "react";
 import { useLang } from "@/context/LanguageContext";
 import { t } from "@/lib/translations";
+
+declare global {
+  interface Window {
+    grecaptcha: {
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+      ready: (cb: () => void) => void;
+    };
+  }
+}
 
 // ─── Styled Components ────────────────────────────────────────────────────────
 
@@ -215,9 +225,33 @@ const SERVICE_ICONS = [
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
+const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!;
+
 export default function ServicesSection() {
   const { lang } = useLang();
   const tr = t[lang].services;
+
+  const handleClick = useCallback(async (e: React.MouseEvent<HTMLAnchorElement>, link: string | null) => {
+    if (!link) return;
+    e.preventDefault();
+
+    try {
+      await new Promise<void>((resolve) => window.grecaptcha.ready(resolve));
+      const token = await window.grecaptcha.execute(SITE_KEY, { action: "try_free" });
+      const res = await fetch("/api/recaptcha", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        window.open(link, "_blank", "noopener,noreferrer");
+      }
+    } catch {
+      // если капча не загрузилась — всё равно пускаем
+      window.open(link, "_blank", "noopener,noreferrer");
+    }
+  }, []);
 
   return (
     <Section>
@@ -253,8 +287,7 @@ export default function ServicesSection() {
                 </CardList>
                 <CardCTA
                   href={link ?? "#"}
-                  target={link ? "_blank" : undefined}
-                  rel={link ? "noopener noreferrer" : undefined}
+                  onClick={(e) => handleClick(e, link)}
                 >
                   {tr.tryFree}
                 </CardCTA>
