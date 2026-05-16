@@ -690,10 +690,9 @@ function ContactSectionInner() {
   const [city, setCity] = useState("");
   const [service, setService] = useState("");
   const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const [errors, setErrors] = useState({ name: false, city: false, service: false, phone: false, email: false });
+  const [errors, setErrors] = useState({ name: false, city: false, service: false, phone: false });
 
   const sha256 = async (str: string) => {
     const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str.trim().toLowerCase()));
@@ -710,13 +709,11 @@ function ContactSectionInner() {
   }
 
   async function handleSubmit() {
-    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
     const newErrors = {
       name: !name.trim(),
       city: !city,
       service: !service,
       phone: phone.replace(/\D/g, "").length < 11,
-      email: !emailValid,
     };
     setErrors(newErrors);
     if (Object.values(newErrors).some(Boolean)) return;
@@ -730,20 +727,18 @@ function ContactSectionInner() {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email, city: cityLabel, service: serviceLabel, plan: selectedPlan }),
+        body: JSON.stringify({ name, phone, city: cityLabel, service: serviceLabel, plan: selectedPlan }),
       });
       const data = await res.json();
       if (data.ok) {
-        // dataLayer push с хешированными данными
         try {
-          const emailHash = await sha256(email);
           const phoneHash = await sha256(phone.replace(/\D/g, ""));
           window.dataLayer = window.dataLayer || [];
           window.dataLayer.push({
             event: "form_submit_contact",
             plan: new URLSearchParams(location.search).get("plan") || "(not set)",
             enhanced_conversion: {
-              sha256_email_address: emailHash,
+              sha256_email_address: "",
               sha256_phone_number: phoneHash,
             },
           });
@@ -751,7 +746,7 @@ function ContactSectionInner() {
           // не блокируем успех если dataLayer упал
         }
         setStatus("success");
-        setName(""); setCity(""); setService(""); setPhone(""); setEmail("");
+        setName(""); setCity(""); setService(""); setPhone("");
       } else {
         setStatus("error");
       }
@@ -874,17 +869,6 @@ function ContactSectionInner() {
               {errors.phone && <FieldError>{tr.fields.phoneError}</FieldError>}
             </FieldGroup>
 
-            <FieldGroup>
-              <Label>{tr.fields.email}</Label>
-              <Input
-                type="email"
-                placeholder={tr.fields.emailPlaceholder}
-                value={email}
-                $error={errors.email}
-                onChange={e => { setEmail(e.target.value); if (errors.email) setErrors(p => ({ ...p, email: false })); }}
-              />
-              {errors.email && <FieldError>{tr.fields.emailError}</FieldError>}
-            </FieldGroup>
 
             {status === "error" && (
               <StatusMessage $error>{tr.errorMsg}</StatusMessage>
