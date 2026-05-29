@@ -680,6 +680,15 @@ function formatPhone(raw: string): string {
 function ContactSectionInner() {
   const searchParams = useSearchParams();
   const [selectedPlan, setSelectedPlan] = useState(searchParams.get("plan"));
+
+  const utmParams = {
+    utm_source:   searchParams.get("utm_source")   || "",
+    utm_medium:   searchParams.get("utm_medium")   || "",
+    utm_campaign: searchParams.get("utm_campaign") || "",
+    utm_content:  searchParams.get("utm_content")  || "",
+    utm_term:     searchParams.get("utm_term")     || "",
+    gclid:        searchParams.get("gclid")        || "",
+  };
   const { lang } = useLang();
   const tr = t[lang].contact;
 
@@ -727,7 +736,7 @@ function ContactSectionInner() {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, city: cityLabel, service: serviceLabel, plan: selectedPlan }),
+        body: JSON.stringify({ name, phone, city: cityLabel, service: serviceLabel, plan: selectedPlan, utm: utmParams }),
       });
       const data = await res.json();
       if (data.ok) {
