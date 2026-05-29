@@ -204,7 +204,7 @@ export default function CTASection() {
           <ButtonPrimary href="https://wa.me/" target="_blank" rel="noopener noreferrer">
             {tr.whatsapp}
           </ButtonPrimary>
-          <ButtonOutline href="#">
+          <ButtonOutline href="/contact">
             {tr.apply}
             <Image src="/icons/arrowRight.svg" alt="" width={16} height={16} />
           </ButtonOutline>
