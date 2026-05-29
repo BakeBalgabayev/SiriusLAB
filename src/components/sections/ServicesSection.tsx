@@ -218,9 +218,9 @@ const CTAButton = styled(Link)`
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const SERVICE_ICONS = [
-  { icon: "/images/moysklad.png", link: "https://www.moysklad.kz/register/?p=2020-2028" },
-  { icon: "/images/bitrix24.png", link: "https://www.bitrix24.kz/create.php?p=12818240" },
-  { icon: "/images/amocrm.png",   link: null },
+  { icon: "/images/moysklad.png", link: "/contact" },
+  { icon: "/images/bitrix24.png", link: "/contact" },
+  { icon: "/images/amocrm.png",   link: "/contact" },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -231,42 +231,9 @@ export default function ServicesSection() {
   const { lang } = useLang();
   const tr = t[lang].services;
 
-  const handleClick = useCallback(async (e: React.MouseEvent<HTMLAnchorElement>, link: string | null) => {
+  const handleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, link: string | null) => {
     if (!link) return;
-    e.preventDefault();
-
-    // Открываем вкладку сразу при клике — до async, чтобы не блокировал popup blocker
-    const newTab = window.open("", "_blank");
-
-    try {
-      await new Promise<void>((resolve) => {
-        if (window.grecaptcha) {
-          window.grecaptcha.ready(resolve);
-        } else {
-          resolve();
-        }
-      });
-
-      const token = window.grecaptcha
-        ? await window.grecaptcha.execute(SITE_KEY, { action: "try_free" })
-        : null;
-
-      if (token) {
-        try {
-          await fetch("/api/recaptcha", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ token }),
-          });
-        } catch {
-          // игнорируем ошибку верификации
-        }
-      }
-      // всегда пускаем — капча только для аналитики
-      if (newTab) newTab.location.href = link;
-    } catch {
-      if (newTab) newTab.location.href = link;
-    }
+    // внутренние ссылки — обычный переход, без капчи
   }, []);
 
   return (
