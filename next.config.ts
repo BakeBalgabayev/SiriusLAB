@@ -7,6 +7,15 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/instruction",
+        destination: "/instruction/index.html",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
