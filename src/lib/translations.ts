@@ -430,6 +430,8 @@ export const t = {
       navTitle: "Навигация",
       resourcesTitle: "Ресурсы",
       contactTitle: "Контакты",
+      email: "Siriussolutionslab@gmail.com",
+      address: "РК, г. Алматы, ул. Утеген батыра 17Б/3",
       links: {
         home: "Главная",
         services: "Услуги",
@@ -874,6 +876,8 @@ export const t = {
       navTitle: "Навигация",
       resourcesTitle: "Ресурстар",
       contactTitle: "Байланыс",
+      email: "Siriussolutionslab@gmail.com",
+      address: "ҚР, Алматы қ., Утеген батыр к-сі 17Б/3",
       links: {
         home: "Басты бет",
         services: "Қызметтер",

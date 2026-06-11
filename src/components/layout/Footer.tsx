@@ -96,11 +96,13 @@ const BrandDesc = styled.p`
 
 const NavColumns = styled.div`
   display: flex;
-  gap: 60px;
+  gap: 40px;
+  margin-right: 40px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: column;
     gap: 24px;
+    margin-right: 0;
   }
 `;
 
@@ -372,6 +374,8 @@ export default function Footer() {
               <ColTitle>{tr.contactTitle}</ColTitle>
               <ContactRow>
                 <Phone href="tel:+77000200959">+7 700 020 09 59</Phone>
+                <Phone href={`mailto:${tr.email}`}>{tr.email}</Phone>
+                <Phone as="span">{tr.address}</Phone>
                 <Socials>
                   <SocialLink href="https://www.instagram.com/siriuslab.kz?igsh=enhlZW95ZWd6MWh1&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <InstagramIcon />
