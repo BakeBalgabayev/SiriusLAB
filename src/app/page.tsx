@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ConferenceModal from "@/components/ConferenceModal";
 import HeroSection from "@/components/sections/HeroSection";
 import ProblemsSection from "@/components/sections/ProblemsSection";
 import StatsSection from "@/components/sections/StatsSection";
@@ -62,6 +63,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      <ConferenceModal />
       <HeroSection />
       <ProblemsSection />
       <StatsSection />
