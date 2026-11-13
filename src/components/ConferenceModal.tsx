@@ -46,7 +46,7 @@ export default function ConferenceModal() {
           position: "relative",
           borderRadius: "16px",
           overflow: "hidden",
-          maxWidth: "560px",
+          maxWidth: "760px",
           width: "100%",
           boxShadow: "0 24px 60px rgba(0,0,0,0.5)",
         }}
