@@ -26,30 +26,45 @@ export default function ConferenceModal() {
   if (!open) return null;
 
   return (
+    <>
+      <style>{`
+        .conf-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(0,0,0,0.6);
+          backdrop-filter: blur(4px);
+          padding: 16px;
+        }
+        .conf-modal {
+          position: relative;
+          border-radius: 16px;
+          overflow: hidden;
+          max-width: 960px;
+          width: 100%;
+          box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+        }
+        @media (max-width: 600px) {
+          .conf-overlay {
+            align-items: center;
+            padding: 12px;
+          }
+          .conf-modal {
+            max-width: 100%;
+            border-radius: 12px;
+          }
+        }
+      `}</style>
     <div
+      className="conf-overlay"
       onClick={close}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 9999,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "rgba(0,0,0,0.6)",
-        backdropFilter: "blur(4px)",
-        padding: "16px",
-      }}
     >
       <div
+        className="conf-modal"
         onClick={(e) => e.stopPropagation()}
-        style={{
-          position: "relative",
-          borderRadius: "16px",
-          overflow: "hidden",
-          maxWidth: "960px",
-          width: "100%",
-          boxShadow: "0 24px 60px rgba(0,0,0,0.5)",
-        }}
       >
         <button
           onClick={close}
@@ -118,5 +133,6 @@ export default function ConferenceModal() {
         </div>
       </div>
     </div>
+    </>
   );
 }
