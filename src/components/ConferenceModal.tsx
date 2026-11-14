@@ -92,6 +92,30 @@ export default function ConferenceModal() {
             priority
           />
         </a>
+        <div style={{ background: "#1a1a2e", padding: "16px 20px" }}>
+          <a
+            href={CONF_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={close}
+            style={{
+              display: "block",
+              width: "100%",
+              padding: "14px",
+              background: "#f04e23",
+              color: "#fff",
+              fontFamily: "inherit",
+              fontSize: "16px",
+              fontWeight: 700,
+              textAlign: "center",
+              borderRadius: "10px",
+              textDecoration: "none",
+              cursor: "pointer",
+            }}
+          >
+            Узнать подробнее →
+          </a>
+        </div>
       </div>
     </div>
   );
