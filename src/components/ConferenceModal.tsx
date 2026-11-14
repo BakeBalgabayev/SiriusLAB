@@ -53,8 +53,16 @@ export default function ConferenceModal() {
             padding: 12px;
           }
           .conf-modal {
-            max-width: 100%;
+            max-width: 320px;
             border-radius: 12px;
+          }
+          .conf-cta-wrap {
+            padding: 10px 12px !important;
+          }
+          .conf-cta {
+            padding: 10px !important;
+            font-size: 14px !important;
+            border-radius: 8px !important;
           }
         }
       `}</style>
@@ -107,8 +115,9 @@ export default function ConferenceModal() {
             priority
           />
         </a>
-        <div style={{ background: "#1a1a2e", padding: "16px 20px" }}>
+        <div className="conf-cta-wrap" style={{ background: "#1a1a2e", padding: "16px 20px" }}>
           <a
+            className="conf-cta"
             href={CONF_URL}
             target="_blank"
             rel="noopener noreferrer"
